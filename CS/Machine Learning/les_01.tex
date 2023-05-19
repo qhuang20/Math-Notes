@@ -1,0 +1,108 @@
+\setcounter{chapter}{0}
+\chapter{Linear/Nonlinear Regression}
+
+\setcounter{section}{-1}
+\section{Notation} \label{sec:}
+\begin{itemize}
+    \item $X$ is an $n \times d$ matrix, where $n$ the number of sample, and $d$ is the number of feature.
+    \item $x_i$ is a $d \times 1$ vector, represent the i-th sample.
+    \item $\hat{y}$ is the prediction, which is an $n\times 1$ vector.
+    \item $y$ is the true value.
+    \item $r_i = \hat{y_i} - y_i$ is the residual.
+\end{itemize}
+
+
+\section{One feature without y-intercept (d=1)} \label{sec:}
+
+The model:
+\begin{align}
+    \hat{y_i} = wx_i
+\end{align}
+Linear Least Squares Objective Function:
+\begin{align}
+    f(w) = \frac{1}{2}\sum\limits_{i=1}^{n} (wx_i-y_i)^{2}
+\end{align}
+
+\begin{remark}
+$cf(w) + d$ has the same set of minimizer as $(1.2)$, where $c,d$ are constant.
+\end{remark}
+Least Squares Solution Derivation:
+\begin{align}
+    f(w) = \frac{w^{2}}{2}\sum\limits_{i=1}^{n} x_i^{2} - w \sum\limits_{i=1}^{n} x_iy_i + \frac{1}{2} \sum\limits_{i=1}^{n} y_i^{2}
+    \\ \left(  \text{Let } a = \sum\limits_{i=1}^{n} x_i^{2}; \quad b = \sum\limits_{i=1}^{n} x_iy_i; \quad c = \sum\limits_{i=1}^{n} y_i^{2} \right)
+    \\ f(w) = \frac{w^{2}}{2}a - wb + c
+\end{align}
+Take derivative:
+\begin{align}
+    f'(w) = wa - b
+\end{align}
+Set $f'(w) = 0:$
+\begin{formula} [Least Squares Solution - One feature]
+    \begin{align}
+        w = \frac{b}{a} = \frac{\sum\limits_{i=1}^{n} x_iy_i}{\sum\limits_{i=1}^{n} x_i^{2}}
+    \end{align}    
+\end{formula}
+\section{Least square in d-dimension} \label{sec:}
+
+Modify equation (1.1) and (1.2) to d-dimension:
+
+\begin{align}
+    \hat{y_i} = w_1x_{i1} + w_2x_{i2} + w_3x_{i3} + \cdots  + w_dx_{id} = \sum\limits_{j=1}^{d} w_jx_{ij} = w^{T}x_i
+    \\ f(w) = f(w_1,w_2,\cdots ,w_d) = \frac{1}{2} \sum\limits_{i=1}^{n} (w^{T}x_i - y_i)^{2} = \frac{1}{2} \left\| Xw - y \right\|^{2}
+\end{align}
+Least Squares Solution Derivation:
+\begin{align}
+    f(w) = \frac{1}{2} w^{T}X^{T}Xw - w^{T}X^{T}y + \frac{1}{2}y^{T}y
+    \\ \left( \text{Let } A = X^{T}X; \qquad b = X^{T}y; \qquad c = \frac{1}{2}y^{T}y\right)
+    \\ f(w) = \frac{1}{2} w^{T}Aw - w^{T}b + c
+\end{align}
+Take gradient:
+\begin{align}
+    \nabla f(w) = Aw - b
+\end{align}
+Set $\nabla f(w) = 0:$
+\begin{formula} [Normal equation]
+    \begin{align}
+        X^{T}Xw = X^{T}y
+    \end{align}
+\end{formula}
+Linear solve to get $w$.
+
+\section{y-intercept and Nonlinear regression with one feature} \label{sec:}
+Idea: Form a new matrix $Z$ by adding column to $X$ (Polynomial Transformations).
+\\
+\\ The model:
+\begin{align}
+    \hat{y_i} = w_0 + w_1x_i + w_2x_i^{2} +\cdots + w_px_i^{p}
+\end{align}
+Let
+\begin{align}
+    Z = \begin{bmatrix}
+     1 & x_1 & x_1^{2} & \cdots  & x_1^{p} \\
+     1 & x_2 & x_2^{2} & \cdots  & x_2^{p} \\
+     \vdots  & \vdots  & \vdots  & \ddots  & \vdots  \\
+     1 & x_n & x_n^{2} & \cdots  & x_n^{p} \\
+    \end{bmatrix}
+    \text{ and }
+    v = \begin{bmatrix}
+      w_0 \\
+      w_1\\
+      w_2\\
+      \vdots \\
+      w_p\\
+    \end{bmatrix}
+\end{align} 
+Linear Least Squares Objective Function:
+\begin{align}
+    f(w) = \frac{1}{2}\left\| Zv - y \right\|^{2}
+\end{align}
+Apply equation (1.14) to find solution.
+
+\begin{remark}
+    Polynomials are not the only possible transformation, we can also use Exponential, logarithms, trigonometric functions, and so on.
+\end{remark}
+
+\section{Computation time} \label{sec:}
+
+Normal equations find $w$ with $\nabla f(w)=0$ in $O(nd^{2}+d^{3})$ time.
+\\This leads us to iterative method: Gradient Descent.

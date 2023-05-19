@@ -1,0 +1,30 @@
+% New command
+%% Math
+\usepackage{amssymb}
+\newcommand{\qed}{\hfill\blacksquare}
+\newcommand{\qedwhite}{\hfill \ensuremath{\Box}}
+\usepackage{stmaryrd} % for \lightning
+\newcommand\contra{\scalebox{1.1}{$\lightning$}}
+\newcommand{\sal}{$\sigma$-algebra }
+
+%% CS
+\newcommand\qacc{\ensuremath{q_{\text{accept} }}}
+\newcommand\qrej{\ensuremath{q_{\text{reject} }}}
+
+% custom
+\newcommand{\proofideaname}{Proof Idea}
+\newenvironment{proofidea}{\noindent\textbf{\color{second}\proofideaname}}{\par}
+\newcommand{\previouslyseenname}{Previously Seen}
+\newenvironment{previouslyseen}{\noindent\textbf{\color{main}\previouslyseenname}}{\par}
+\newcommand{\observename}{Observe}
+\newenvironment{observe}{\noindent\textbf{\color{third}\observename}}{\par}
+\newcommand{\motivationname}{Motivation}
+\newenvironment{motivation}{\noindent\textbf{\color{second}\motivationname}}{\par}
+\newcommand{\defintuitionnname}{Intuition}
+\newenvironment{defintuition}{\noindent\textbf{\color{main}\defintuitionnname}}{\par}
+\newcommand{\thmintuitionnname}{Intuition}
+\newenvironment{thmintuition}{\noindent\textbf{\color{second}\thmintuitionnname}}{\par}
+\newcommand{\rmkintuitionnname}{Intuition}
+\newenvironment{rmkintuition}{\noindent\textbf{\color{third}\rmkintuitionnname}}{\par}
+\newcommand{\explainationname}{Explaination}
+\newenvironment{explaination}{\noindent\textbf{\color{third}\explainationname}}{\par}

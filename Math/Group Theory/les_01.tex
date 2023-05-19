@@ -1,0 +1,481 @@
+\setcounter{chapter}{0}
+\chapter{Group Theory}
+
+\begin{notation} ~
+\begin{itemize}
+    \item $\id$ denote the identity element distinguish from 1.
+    \item Denote $u^{-1}$ the inverse of $u$.
+    \item $a \cdot b$ can be written as $ab$ for short.
+    \item If $r$ is finite, we write $r < \infty$.
+\end{itemize}
+\end{notation}
+\setcounter{section}{-1}
+
+\section{Overview} \label{sec:}
+
+
+
+\newpage
+\section{Monoid} \label{sec:}
+
+\begin{definition}[Monoid]~
+A \textit{monoid} is a triple $(M, \cdot, \id)$ in which
+\begin{enumerate}
+    \item $M$ is non-empty set,
+    \item $\cdot$ is an associate binary operation in $M$,
+    \item $\id \in M$, such that $\forall a \in M, \id \cdot a = a = a \cdot \id$.
+\end{enumerate}
+\end{definition}
+\begin{remark}
+$\id$ is unique.
+\end{remark}
+
+\begin{definition}[Monad; Semigroup] ~
+    \begin{itemize}
+        \item Dropping associativity of $p$ from a monoid results a \textit{monad}.
+        \item Dropping identity element from a monoid results a \textit{semigroup}.
+    \end{itemize}
+\end{definition}
+
+\begin{definition}[Submonoid] Let $M$ be a monoid.
+    \\ A subset $N$ is \textit{submonoid} of $M$ if
+    \begin{itemize}
+        \item $\id \in N$,
+        \item $\forall n_1, n_2 \in N$, $n_1 \cdot n_2 \in N$.
+    \end{itemize}
+\end{definition}
+
+\begin{remark} ~
+\begin{itemize}
+    \item A submonoid is a monoid.
+    \item A submonoid of a submonoid of $M$ is a submonoid of $M$.
+\end{itemize}
+\end{remark}
+
+
+
+\begin{eg}
+    Let $M(S)$ be a set of all transformation of $S$, $\cdot $ be the function composition, $\id$ be the identity transformation, then $(M(S),\cdot , \id)$ is a monoid.
+\end{eg}
+
+\begin{definition}[Monoid of transformation] Let $S$ be a set, and $M(S)$ be the set of transformation of $S$, then a submonoid of $M(S)$ is called a \textit{monoid of transformation (of $S$)}.
+\end{definition}
+
+\begin{definition}[Order of monoid]
+    The \textit{order of a monoid}  is its cardinality, denoted by $|M|$.
+\end{definition}
+
+\begin{remark}
+    The order of the monoid of transformation of $S = \{ 1,2,\cdots ,n \}$ is $n^{n}$.
+\end{remark}
+    
+\begin{definition}[Finite]
+    A monoid is \textit{finite}  if it has finite order.
+\end{definition}
+
+\newpage
+
+\section{Group} \label{sec:}
+
+\begin{definition}[Invertible] An element $u$ of a monoid $M$ is said to be \textit{invertible} if there exists $v \in M$ such that $uv=\id=vu$.
+\\ Such $v$ is called the \textit{inverse} of $u$.
+\end{definition}
+
+\begin{remark} Let $M$ be a monoid.
+$\forall u \in M$, if $u$ is invertible, then its inverse is unique.
+\end{remark}
+
+\begin{definition}[Group; Subgroup] ~
+\begin{itemize}
+    \item A \textit{group} $G$ is a monoid all of whose elements are invertible.
+    \item Let $G$ be a group. A subset of $G$ is a \textit{subgroup of $G$} if it is a group.
+\end{itemize}
+\end{definition}
+
+\begin{definition}[Group of units]
+The set of invertible elements of the monoid $M$ is called the \textit{group of unites of $M$}, denoted by $U(M)$.
+\end{definition}
+
+\begin{definition}[Symmetric group] Let $S$ be a set.
+\\ The \textit{symmetric group} of $S$ is $U(M(S))$, the set of invertible transformation (bijection) of $S$.
+\end{definition}
+
+\begin{definition}[Permutation]
+Let $S = \{ 1,2,\cdots ,n \}$, a \textit{permutation} of $S$ is an element of the symmetric group $S_n$ of $S$.
+\end{definition}
+
+\begin{prop}
+The order of $S_n$ is $n!$.
+\end{prop}
+
+\begin{definition}[Group of transformations / Transformation group; Permutation group] ~
+    \begin{itemize}
+        \item Let $S$ be a set, and $G(S)$ be the symmetric group of $S$, then a subgroup of $G(S)$ is called a \textit{group of transformations (of $S$)}.
+        \item If $S$ is finite, then we call the group of transformations of $S$ the \textit{permutation group (of $S$)}.
+    \end{itemize}
+\end{definition}
+
+\begin{definition}[Direct product] Let $M_1,M_2,\cdots ,M_n$ be given monoids. The \textit{direct product} $M = M_1 \times  M_2 \times \cdots \times M_n$ \textit{of the monoids $M_i$} is defined as $\{ (a_1,a_2,\cdots ,a_n)(b_1,b_2,\cdots ,b_n) = (a_1b_1,a_2b_2,\cdots ,a_nb_n) : a_i,b_i \in M_i \}$.
+\end{definition}
+
+\begin{remark}
+The direct product of monoids is still a monoid.
+\end{remark}
+
+\newpage
+\section{Isomorphism} \label{sec:}
+
+\begin{definition}[Isomorphism]
+Two monoids $(M,\cdot, \id)$ and $(M', *, \id')$ are said to be \textit{isomorphic} (denoted by $M \cong M'$) if there exists a bijective map $\eta: M \to M'$ such that:
+$$
+\eta(\id) = \id', \qquad \eta(x\cdot y) = \eta(x) * \eta(y), \qquad \forall x,y \in M
+$$
+\end{definition}
+
+\begin{prop}
+Isomorphism is an equivalence relation on all monoids.
+\end{prop}
+
+\begin{theorem}[CAYLEY'S THEOREM FOR MONOIDS AND GROUPS] ~
+\begin{enumerate}
+    \item Any monoid is isomorphic to a monoid of transformations.
+    \item Any group is isomorphic to a transformation group.
+\end{enumerate}
+\end{theorem}
+\begin{proof}
+Idea: Let $(M,\cdot, 1)$, we could set up an isomorphism of $(M,\cdot, 1)$ with a monoid of transformations of the set $M$ itself.
+\end{proof}
+\begin{corollary}
+Any finite group of order $n$ is isomorphic to a subgroup of the symmetric group $S_n$.
+\end{corollary}
+
+
+\newpage
+
+\section{Associativity and Commutativity} \label{sec:}
+
+\subsection*{Associativity} \label{sec:}
+
+Let $\{ a_i \}$ be a finite sequence of elements of a monoid $M$.
+
+\begin{lemma}
+Define $\prod_{1}^{n} a_i$ by $\prod_{1}^{1} a_i = a_1$, $\prod_{1}^{r+1} a_i = (\prod_{1}^{r} a_j)a_{r+1}$. Then
+$$
+\prod_{1}^{n} a_i \prod_{1}^{m} a_{n+j} = \prod_{1}^{n+m} a_k.
+$$
+\end{lemma}
+
+\begin{remark}
+For a given product $a_1 a_2 \cdot a_n$, the parentheses does not affect the result.
+\end{remark}
+
+\begin{definition}[Power]~
+\begin{itemize}
+    \item The \textit{n-th power of $a$} is $a^{n} = a_1a_2\cdots a_n$ where all $a_i = a$.
+    \item Define $a^{0} = \id$. 
+    \item If $a$ is invertible, then define $a^{-n} = a_1^{-1}a_2^{-1}\cdots a_n^{-1}$ where all $a_i^{-1} = a^{-1}$.
+\end{itemize}
+\end{definition}
+
+\begin{remark}
+$$
+a^{m}a^{n} = a^{m+n}, \qquad (a^{m})^{n} = a^{mn}, \qquad \forall m,n \in \mathbb{N}
+$$
+If in addition $a$ is invertible, then the above holds for all $m,n \in \mathbb{Z}$
+\end{remark}
+
+\subsection*{Commutativity} \label{sec:}
+
+\begin{definition}[Commute]
+Elements $a,b$ of a monoid $M$ said to \textit{commute}  if $a\cdot b = b\cdot a$.
+\end{definition}
+
+\begin{definition}[Commutative monoid; Abelian group] ~
+\begin{itemize}
+    \item A monoid is a \textit{commutative monoid} if $\forall a,b \in M$, $a,b$ commute.
+    \item An \textit{Abelian group} is a commutative group.
+\end{itemize}
+\end{definition}
+
+\begin{definition}[Centralizer; Center] Let $M$ be a monoid.
+\begin{itemize}
+    \item Let $a \in M$, the \textit{centralizer of $a$}, $C_M(a)$ is $\{ b \in M : a,b \text{ commute} \}$.
+    \item Let $A \subseteq M$, the \textit{centralizer of $A$}, $C_M(A)= \bigcap_{a \in A} C_M(a)$.
+    \item $C_M(M)$ is the \textit{center} of $M$.
+\end{itemize}
+\end{definition}
+
+\begin{remark} ~
+\begin{itemize}
+    \item The centralizer $C_M(a)$, $C_M(A)$ of a monoid $M$ is a submonoid of $M$.
+    \item The centralizer $C_G(a)$, $C_G(A)$ of a group $G$ is a subgroup of $G$.
+\end{itemize}
+\end{remark}
+
+\begin{prop}
+Let $a_1,a_2,\cdots ,a_n \in M$ such that $a_ia_j=a_ja_i$ for all $i,j$.
+\\Then the product $a_1a_2\cdots a_n$ is invariant under all permutations. In particular, if $ab = ba$, then
+$$
+(ab)^{m} = a^{m}b^{m} \qquad \forall m \in \mathbb{N} \cup \{ 0 \}
+$$
+If in addition $a,b$ are invertible, then the above holds for $m \in \mathbb{Z}$.
+\end{prop}
+
+
+\newpage
+
+\section{Generator} \label{sec:}
+
+We can approach the definition of generator in two ways. One is through a non-constructive way:
+\begin{definition}[Generator]
+Let $S$ be a subset of a monoid $M$ (or a group $G$), and let $\{ M_\alpha \}$ (or $\{ G_\alpha \}$) be the set of all submonoids (or subgroup) of $M$ (or $G$) which contain the set $S$.
+Then the \textit{submonoid (or subgroup) generated by $S$} is
+$$
+\left<S \right> = \bigcap_{\alpha}M_\alpha \quad \left(\text{or} \quad \left<S \right> = \bigcap_{\alpha}G_\alpha\right)
+$$ 
+\end{definition}
+
+Another is through a constructive way:
+\begin{definition}[Generator]
+Let $S$ be a subset of a monoid $M$ (or a group $G$), then the \textit{submonoid (or subgroup) generated by $S$} is
+$$
+\left<S \right> = \{ \id, \prod_{i=1}^{n}s_i :s_i \in S, n \in \mathbb{N}  \}
+$$
+$$
+\left(\text{or} \quad  \left<S \right> = \{ \id, \prod_{i=1}^{n}s_i :s_i \in S \lor s_i^{-1} \in S, n \in \mathbb{N}  \} \right)
+$$
+In the case where $\left<S \right> = M$ (or $G$), we say $S$ a set of \textit{generators} of $M$ (or $G$).
+\end{definition}
+
+\begin{remark}
+$\left<S \right>$ is a submonoid (or subgroup) of $M$.
+\end{remark}
+
+
+
+
+The \textbf{Definition 20} tells us that the submonoid generated by $S$ is the smallest submonoid of $M$ that contains $S$.
+\begin{prop}
+Given $S \subseteq M$. Obtain $\left<S \right>$ from the \textbf{Definition 20}, $\left<S \right>'$ from the \textbf{Definition 21}, $\left<S \right> = \left<S \right>'$.
+\end{prop}
+
+
+\newpage
+
+\section{Cyclic group} \label{sec:}
+
+\begin{definition}[Cyclic group; Order of element]
+Let $G$ be a group and $a \in G$. The \textit{cyclic group with generator $a$} is $\left<a \right>$.
+The \textit{order of a}, denoted by $o(a)$, is the order of $\left<a \right>$.
+\end{definition}
+
+\begin{remark}
+Cyclic groups are Abelian.
+\end{remark}
+
+
+
+\begin{lemma} ~
+\begin{enumerate}
+    \item A cyclic group of order infinite is isomorphic to $\mathbb{Z}$
+    \item A cyclic group of order $n$ is isomorphic to $\mathbb{Z}/n\mathbb{Z}$.
+\end{enumerate}
+\end{lemma}
+
+\begin{theorem}
+Any two cyclic groups of the same order are isomorphic.
+\end{theorem}
+
+\begin{theorem}
+Any subgroup of a cyclic group $\left<a \right>$ is cyclic.
+\begin{itemize}
+    \item If the order of $\left<a \right>$ is infinite, then the order of its non-$\left<\id \right>$ subgroup is also infinite, moreover, there exists a bijection from $\mathbb{N}$ to the set of subgroups of $\left<a \right>$.
+    \item If $\left<a \right>$ is or order $r$, then the order of every subgroup of $\left<a \right>$ is a divisor of $r$, and for every positive divisor $q$ of $r$, $\left<a \right>$ has one and only one subgroup of order $q$.
+\end{itemize}
+\end{theorem}
+
+\begin{corollary}
+Let $\left<a \right>$ be a cyclic group of order $r < \infty$, and $H$ is a subgroup of $\left<a \right>$ of order $q|r$. Then $H = \{ b \in \left<a \right> : b^{q}=\id \}$.
+\end{corollary}
+
+\begin{definition}[Exponent]
+Let $G$ be a finite group. The \textit{exponent}, $\exp(G)$, of $G$ is the smallest positive integer $e$ such that $\forall x \in G, x^{e}=\id$.
+\end{definition}
+
+\begin{lemma}
+Let $g$ and $h$ be elements of an Abelian group $G$ having finite relatively prime orders $m$ and $n$ respectively (that is, $\operatorname{gcd}(m,n) = 1$). Then $o(gh) = mn$.
+\end{lemma}
+
+\begin{lemma}
+Let $G$ be an Abelian group with finite number of generators (or called \textit{finitely generated abelian group}), $g \in G$ of maximal order. Then $\exp(G) = o(g)$.
+\end{lemma}
+
+
+
+\begin{theorem}
+Let $G$ be an finitely generated abelian group. Then $G$ is cyclic if and only if $\exp(G) = |G|$.
+\end{theorem}
+
+
+\newpage
+
+\section{Cycle and Alternating group} \label{sec:}
+
+\begin{definition}[$r$-cycle]
+An \textit{$r$-cycle}, is a permutation of $\gamma$ of $\{1,2,\cdots ,n \}$ such that permutes a sequence of $r$ elements $i_1, i_2, \cdots  , i_r \in \{1,2,\cdots ,n \}$ cyclically in the sense that:
+$$
+    \gamma(i_1) = i_2, \quad \gamma(i_2) = i_3,\cdots ,\gamma(r_{r-1})=i_r, \quad  \gamma(i_r) = i_1
+$$
+and leaves order elements unchange.
+\\ We denote it as $(i_1i_2\cdots i_r)$, and the \textit{length} of it is $r$.
+\end{definition}
+
+\begin{definition}[Disjoint]
+Two cycles $\gamma$, $\gamma'$ are said to be \textit{disjoint} if their symbols contains no common letters.
+\end{definition}
+
+\begin{prop}
+An $r$-cycle $\gamma$ is of order $r$.
+\end{prop}
+
+\begin{prop}
+Two disjoint cycles commute under function composition.
+\end{prop}
+
+\begin{prop}
+Let $\alpha$ be a product of disjoint cycles, that is
+$$
+\alpha = (i_1i_2\cdots i_r)(j_1j_2\cdots j_s)\cdots (l_1l_2\cdots l_u)
+$$
+Let $m = \operatorname{lcm}(r,s,\cdots ,u)$. Then $m$ is the order of $\alpha$.
+\end{prop}
+
+\begin{prop}
+Every permutation of $\{ 1,2,\cdots ,n \}$ can be factored as a product of disjoint cycles. Apart from the commutation of these disjoint cycles, this factorization is unique.
+\end{prop}
+
+\begin{definition}[Transposition]
+A 2-cycle is called a \textit{transposition}.
+\end{definition}
+
+\begin{remark}
+An $r$-cycle, $(i_1i_2\cdots i_n) = (i_1i_r)\cdots (i_1i_3)(i_1i_2)$, is a product of $r-1$ transpositions.
+\end{remark}
+
+\begin{definition}[Sign of permutation]
+Let $\sigma$ be a permutation, and $C_1\cdots C_r$ a product of disjoint cycles that factor $\sigma$. Let the length of $C_i$ be $l_i$. Then the \textit{sign}  of $\sigma$ is 
+$$
+\operatorname{sign}(\sigma) = (-1)^{(l_1-1)+(l_2-1)+\cdots +(l_r-1)}
+$$
+We say $\sigma$ is even if $\operatorname{sign}(\sigma)=1$ and odd if $\operatorname{sign}(\sigma)=-1$.
+\end{definition}
+
+\begin{lemma}
+Let $(ab)$ be a transposition, and $(a c_1\cdots c_h b d_1\cdots d_k)$ be a $(h+k+2)$-cycle. Then
+$$
+(ab)(a c_1\cdots c_h b d_1\cdots d_k) = (b d_1\cdots d_k)(a c_1\cdots c_h)
+$$
+and 
+$$
+(ab)(b d_1\cdots d_k)(a c_1\cdots c_h) = (a c_1\cdots c_h b d_1\cdots d_k)
+$$
+\end{lemma}
+
+\begin{prop}
+Let $\sigma_1, \sigma_2$ be permutations, then 
+$$
+\operatorname{sign}(\sigma_1\sigma_2) = \operatorname{sign}(\sigma_1)\operatorname{sign}(\sigma_2)
+$$
+\end{prop}
+
+\begin{corollary}
+If $\sigma \in S_n$ is a product of $k$ transpositions, then $\operatorname{sign}(\sigma) = (-1)^{k}$
+\end{corollary}
+
+
+
+\begin{prop}
+Let $\sigma$ be a permutation. Let $\tau_1\cdots \tau_k$ and $\tau_1'\cdots \tau_l'$ be two factorizations of $\sigma$ for which $\tau_1,\cdots ,\tau_k,\tau_1',\cdots ,\tau_l'$ are transpositions. Then $l \equiv k \;(\bmod\; 2)$.
+\end{prop}
+
+\begin{corollary}
+Even permutations form a subgroup of $S_n$ (symmetric group of $\{ 1,2,\cdots ,n \}$). We call this subgroup the \textit{alternating group of degree $n$} and is denoted by $A_n$.
+\end{corollary}
+
+\begin{remark}
+$|A_n| = \frac{n!}{2}$
+\end{remark}
+
+\newpage
+
+\section{Lagrange's theorem} \label{sec:}
+Let $G$ be a group, $H \subseteq G$ be a subgroup, $g_1,g_2 \in G$. We define $g_1 \sim  g_2$ if
+$$
+\exists h \in H \text{ s.t. } g_2 = g_1h
+$$
+\begin{remark}
+$\sim $ is an equivalence relation on $G$.
+\end{remark}
+
+\begin{definition}[Left coset]
+Equivalence classes for $\sim $ are called \textit{left cosets}  of $H$ in $G$.
+The \textit{left coset containing $g$} is 
+$$
+gH = \{ gh : h \in H \}
+$$
+The set of left cosets of $H$ in $G$ is denoted by $G/H$.
+\\The order of $G/H$ is denoted by $[G:H]$, called the \textit{index of $H$ in $G$}.
+\end{definition}
+
+\begin{lemma}
+Every coset $gH$ has $|H|$ elements.
+\end{lemma}
+
+\begin{theorem}[LAGRANGE'S THEOREM]
+Let $G$ be a finite group, $H \subseteq G$ be a subgroup.
+Then
+\begin{align}
+    \left| G \right| = \left| H \right| \left[ G:H \right]
+\end{align}
+in particular, $|H|$ divides $|G|$.
+\end{theorem}
+
+\begin{corollary}
+Let $G$ be a group, $g \in G$, take $H = \left<g \right>$, then $|H|$ divides $|G|$.
+\\ If $|G|$ is prime, then $|H| = 1$ or $|G|$. If $|H| = |G|$, then $H = G$ and $G$ is cyclic.
+\end{corollary}
+
+\begin{corollary}
+$G$ is finite, $g \in G$, then $g^{|G|} = 1$.
+\end{corollary}
+
+
+
+\newpage
+
+\section{Normalizer} \label{sec:}
+
+We want to define multiplication on coset, such that $g_1H \cdot  g_2H$ is well-defined.
+
+\begin{definition}[Normal]
+Let $G$ be a group, and $H \subseteq G$ be a subgroup. Then $H$ is \textit{normal} if $\forall g \in G$, $gHg^{-1} = H$.
+\end{definition}
+
+\begin{prop}
+If $H$ is normal in $G$, then $\forall g \in G$, $gH = Hg$.
+\end{prop}
+\begin{proof}
+$\forall h \in H$, $ghg^{-1} = h_1 \in H \iff gh_1 = h_1g$ for some $h_1 \in H$, which implies $gH \subset Hg$.
+\end{proof}
+
+This lead to an equivalent definition of \textit{normal}.
+\begin{definition}[Normal]
+Let $G$ be a group, and $H \subseteq G$ be a subgroup. Then $H$ is \textit{normal} if $\forall g \in G$, $gH = Hg$.
+\end{definition}
+
+\begin{note} ~
+    \begin{itemize}
+        \item $gH \subseteq G \text{ is a subset}$
+        \item $gH \in G/H \text{ is an element}$
+    \end{itemize}
+\end{note}

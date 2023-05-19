@@ -1,0 +1,70 @@
+\chapter{Preliminary}
+
+\begin{definition}[Isometry]
+\normalfont Let $(X,d_X)$ and $(Y, d_Y)$ be metric spaces. A map $f: X \to Y$ is called \textbf{isometry} if for any $a,b \in X$,
+\begin{align*}
+    d_X(a,b) = d_Y(f(a), f(b)).
+\end{align*}
+\end{definition}
+
+\begin{definition}[Congruent]
+ \normalfont Two subsets $E,F \subseteq \mathbb{R}^{n}$ are called \textbf{congruent} if there exists an isometry $f: \mathbb{R}^{n} \to \mathbb{R}^{n}$ s.t. $f(E) = F$.
+\end{definition}
+
+\begin{defintuition}
+    $E$ congruent to $F$ if $E$ can be transformed into $F$ by translations, rotations, and reflections.
+\end{defintuition}
+
+\begin{definition}[Indexed family]
+    \normalfont Let $I$ and $X$ be sets and $f$ a function s.t.
+    \begin{align*}
+       f : & I \to X
+       \\ & i \mapsto x_i = f(i)
+    \end{align*}
+   (note that we denoted the image of $i$ under $f$ by $x_i$). We then call the image of $I$ under $f$ a \textbf{family of elements in $X$ indexed by $I$}. 
+\end{definition}
+
+\begin{remark}
+    Similar definition goes to \textbf{indexed collection of nonempty sets}.
+\end{remark}
+
+\section{Topology}
+\begin{proposition} \label{prop:1.1}
+ \normalfont
+ \begin{enumerate}
+    \item Any open subset of $\mathbb{R}$ is a countable union of disjoint open intervals.
+    \item Any open interval is a countable union of closed intervals.
+ \end{enumerate}
+\end{proposition}
+
+\section{Sequence and series} \label{sec:}
+
+\begin{definition}
+ \normalfont If $X$ is an arbitrary set and $f: X \to [0,\infty]$, we define 
+ \begin{align*}
+    \sum\limits_{x \in X} f(x) = \sup_{} \{ \sum\limits_{x \in F} f(x) : F \subseteq X , |F| < \infty  \}
+ \end{align*}
+\end{definition}
+
+\begin{remark}
+We define the sum to be the supremum of its finite partial sums so that it also works for uncountable set $X$.
+\end{remark}
+
+\begin{proposition} \label{1.2.1}
+ \normalfont Given $f: X \to [0, \infty]$, let $A = \{ x \in X : f(x) > 0 \}$. If $A$ is uncountable, then $\sum_{x \in X}f(x) = \infty$. If $A$ is countably infinite, then $\sum_{x \in X}f(x) = \sum_{1}^{\infty}f(g(n))$ where $g: \mathbb{N} \to A$ is any bijection and the sum $\sum_{1}^{\infty}f(g(n))$ is an arbitrary infinite series.
+\end{proposition}
+\begin{proof}
+    We can write $A = \bigcup_{n = 1}^{\infty} A_n$, where $A_n = \{  x \in X : f(x) > \frac{1}{n} \}$. If $A$ is uncountable, then there exists $A_k$ is uncountable, thus contains infinite many elements and $\sum_{x \in F} f(x) > |F|/n$ where $F \subset A_k$ is finite. As $|F| \to \infty$, $\sum_{x \in X}f(x) \to \infty$. 
+    
+    If $A$ is countably infinite, then there exists a bijection $g: \mathbb{N} \to A$. For every finite subset $F$ of $A$, we can always find a set $B_N = g(\{ 1,\cdots ,N \})$ containing $F$ with large enough $N$. Hence
+    \begin{align*}
+        \sum\limits_{x \in F}^{} f(x) \le \sum\limits_{1}^{N} f(g(n)) \le \sum\limits_{x \in X}^{} f(x)
+    \end{align*}
+    By taking the supremum over $N$, we have
+    \begin{align*}
+        \sum\limits_{x \in F}^{} f(x) \le \sum\limits_{1}^{\infty} f(g(n)) \le \sum\limits_{x \in X}^{} f(x)
+    \end{align*}
+    and then taking the supremum over $F$, we obtain the desired result.
+\end{proof}
+
+

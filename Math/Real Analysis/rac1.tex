@@ -1,0 +1,28 @@
+\chapter*{Complementary 1: The Axiom of Choice} \label{sec:}
+
+% \begin{remark}
+% The index set $I$ could be countable or uncountable.
+% \end{remark}
+
+\begin{axiom}[The Axiom of Choice [AC]]
+ \normalfont For any collection $X$ of nonempty sets, there exists a choice function $f: X \to \bigcup X $, such that for every $A \in X$, $f(A) \in A$.
+\end{axiom}
+
+\begin{thmintuition}
+    AC tells us that for any given collection of non-empty sets, we can pick one element from each set and form a new set.
+\end{thmintuition}
+
+\begin{corollary} [Zorn's lemma]
+ \normalfont Suppose a partially ordered set $P$ has the property that every chain in $P$ has an upper bound in $P$. Then the set $P$ contains at least one maximal element.
+\end{corollary}
+\begin{proofidea}
+    Assume the contrary, we can build a very long chain that has no upper bound in $P$.
+\end{proofidea}
+
+
+\section*{Banach–Tarski paradox} \label{sec:}
+
+\begin{corollary}[strong form of the Banach–Tarski paradox]
+ \normalfont Given any two bounded subsets $A$ and $B$ of a Euclidean space in at least three dimensions, both of which have a nonempty interior, there are partitions of $A$ and $B$ into a finite number of disjoint subsets, $A = A_1 \cup \cdots \cup A_k$, $B = B_1 \cup \cdots \cup B_k$ (for some integer $k$), such that for each (integer) $i$ between 1 and $k$, the sets $A_i$ and $B_i$ are congruent.
+\end{corollary}
+

@@ -1,0 +1,27 @@
+\setcounter{chapter}{2}
+\chapter{Gradient Descent}
+
+Goal: find zero of $\nabla f(w) = X^{T}X w - X^{T}y$.
+
+\setcounter{section}{0}
+
+\section{Gradient Descent} \label{sec:}
+
+\begin{alg} [Gradient Descent] ~
+    \begin{algorithmic}
+        \State $w \gets \text{Random guess}$
+        \While{$\left\| \nabla f(w) \right\| >  \epsilon$}
+        \State $w \gets w - \alpha \nabla f(w)$
+        \EndWhile
+        \Return $w$
+    \end{algorithmic}
+\end{alg}
+
+\begin{remark}
+Time complexity: $O(ndt)$.
+\end{remark}
+Compare to least square, gradient descent can be faster when $d$ is very large.
+\\
+\\If step size $\alpha$ is too large gradient descent may not converge.
+\\If step size $\alpha$ is too small gradient descent may be too slow.
+

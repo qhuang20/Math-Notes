@@ -1,0 +1,206 @@
+\newpage
+\section{Group Action} \label{sec:}
+\subsection{Group Action} \label{sec:}
+
+\begin{definition}[Group Action]
+Let $G$ be a finite group and $X$ be a finite set.
+\\ An \textit{action of $G$ on $X$} is a homomorphism:
+\begin{align*}
+    \varphi: G \to \text{ group of permutation of } X
+\end{align*}
+\end{definition}
+
+\begin{definition}[Conjugation]
+Let $X=G$, a conjugation of $X$ by $g \in G$ is:
+\begin{align*}
+    \varphi(g): X \mapsto gXg^{-1}
+\end{align*}
+\end{definition}
+
+\begin{corollary}
+Conjugation is a group action.
+\end{corollary}
+
+\begin{remark} Consider conjugation action $\varphi$,
+\begin{enumerate}
+    \item $\text{kernel}(\varphi) = \{ g \in G : \forall x \in X, gxg^{-1} = x \}$.
+    \item $\text{kernel}(\varphi) = Z(G)$
+    \item $\text{kernel}(\varphi) = G \iff G $ Abelian.
+\end{enumerate}    
+\end{remark}
+\begin{observe}
+    Once we have the definition of group action, we can ask two questions:
+    \begin{enumerate}
+    \item What other \textcolor{red}{states} in $S$ are reachable from $s$? (\textcolor{red}{orbits})
+    \item What are the \textcolor{blue}{group elements} in $G$ does not move $s$? (\textcolor{blue}{stabilizer})
+    \end{enumerate}
+\end{observe}
+
+\subsection{Orbit} \label{sec:}
+
+\begin{definition} Consider $G$, $X$, $\varphi$
+\\ Define $x \sim y$ to be the relation satisfying:
+\begin{enumerate}
+    \item $x,y \in X$
+    \item $\exists g \in G$ with $\varphi(g)x=y$
+\end{enumerate}
+\end{definition}
+
+\begin{intuition}
+    $x \sim y$ iff there is a $g \in G$ that moves $x$ to $y$, or there exists a permutation in the image $\varphi(G)$ containing a cycle $(\cdots xy\cdots )$.
+\end{intuition}
+
+\begin{corollary}
+The above relation is an equivalent relation.
+\end{corollary}
+\begin{proof}
+The symmetry and transitivity relies on the fact that $\varphi$ is homomorphism. 
+\\Whole proof omitted.
+\end{proof}
+
+\begin{definition}[orbit]
+The orbit of $x \in X$ is $[x]$.
+\end{definition}
+
+\begin{remark}
+$X = \bigsqcup$ orbits.
+\end{remark}
+
+\begin{eg}
+$X = G$, consider the action: $\varphi: x \mapsto gx$, the only one orbit is $X$ itself, because $\forall x,y \in X$, let $g = yx^{-1}$, clearly $gx=y$.
+\end{eg}
+
+\begin{definition}[Transitive action]
+Actions with only 1 orbit are called to be transitive.
+\end{definition}
+\begin{remark}
+Action $\varphi: x \mapsto gx$ is transitive.
+\end{remark}
+\begin{observe}
+    Given a transitive action, we can get from any $x \in X$ to any $y \in X$.
+\end{observe}
+
+\begin{remark}
+    Action $\varphi: x \mapsto gxg^{-1}$ is \textbf{not} transitive.
+\end{remark}
+
+\begin{eg}
+    Give $G$ is Abelian, and the conjugation action $\varphi$,
+    \begin{align*}
+        x \sim y \iff \exists g \in G \text{ s.t. } gxg^{-1}= y \iff x = y
+    \end{align*}
+    Therefore, the orbits are one element set.
+\end{eg}
+
+\begin{prop}
+Consider conjugation action, if $G$ is non-Abelian, then $x \sim y \implies o(x) = o(y)$.
+\end{prop}
+
+\begin{observe}
+    Every orbit under conjugation action consist elements of the same order, which means that we can get at least one orbit for elements of the same order. (In general, the order of elements is not enough to specify orbits)
+\end{observe}
+
+\begin{definition}[Conjugacy class]
+The orbit under conjugation action $[x] = \{ gxg^{-1} : g \in G \}$ is the conjugacy class.
+\end{definition}
+
+\begin{eg}
+Let $H \subseteq G$, $X = G$, and $H$ acts on $X$ by translation: $\varphi: x \mapsto hx$, then the right coset $Hx = \{ hx : h \in H \}$ is an orbit of $x$. Intuitively, $G$ breaks into orbits, and each coset is an orbit.
+\end{eg}
+
+\begin{eg}
+Let $H < G$, $X = G/H$ (Quotient group), and $G$ acts on $X$ by $\varphi: xH \mapsto g(xH)$, this action is \textbf{transitive} because that $\forall xH, yH \in X$, let $g = yx^{-1}$, clearly $g(xH) = gxH = yH$.
+\end{eg}
+
+\subsection{Stabilizer} \label{sec:}
+
+\begin{definition}[Stabilizer]
+    Consider group action $G$ on $X$, the \textit{stabilizer of $x \in X$ under $G$} is
+    \begin{align*}
+        \text{stab}_G(x) = \{ g \in G : gx = x \}
+    \end{align*}
+\end{definition}
+\begin{prop}
+$\text{stab}_G(x)$ is a subgroup of $G$.
+\end{prop}
+
+
+\begin{remark}
+    Consider $G$ acting on $G$ by conjugation, $\text{stab}_G(x) = \{ g \in G : gxg^{-1} = x\} = C_G(x)$
+\end{remark}
+    
+\begin{prop}
+    Consider $G$ acts transitively on $X$, then $\exists g \in G$ s.t. $gx=y$, and $\forall x,y \in X$,
+    \begin{align*}
+        \text{stab}_G(y) = g\cdot \text{stab}_G(x)\cdot g^{-1}
+    \end{align*}
+\end{prop}
+
+\subsection{Equivalent of group actions} \label{sec:}
+
+\begin{definition}[Equivalent of group actions] Let $\varphi: G \to S_X$ ad $\phi: G \to S_Y$.
+\\ $X$ is \textit{equivalent} to $Y$ as a set with action of $G$ if there exists a bijection $f: X \to Y$ such that
+\begin{align*}
+    \forall x \in X, f(\varphi(g)x) = \phi(g)(f(x))
+\end{align*}
+\end{definition}
+
+\begin{intuition}
+    \begin{tikzcd}
+        X \arrow{r}{f} \arrow[swap]{d}{\varphi(g)} & Y \arrow{d}{\phi(g)} \\%
+        X \arrow{r}{f}& Y
+        \end{tikzcd}
+\end{intuition}
+
+\begin{theorem}
+If $G$ acts on $X$ transitively, then $\exists H < G$ such that $X$ is \textbf{equivalent} to $G/H$ as sets with action of $G$.
+\end{theorem}
+\begin{proof}
+Construction of $H$ from $X$: pick $x \in X$, let $H = \{  g \in G : gx=x \}$, which by definition means $H = \text{stab}_G(x)$.
+We want to prove $X$ is equivalent to $G/H$:
+\\Consider $f: gH \mapsto gx$
+\end{proof}
+
+\begin{intuition}
+    \begin{tikzcd}
+        X \arrow{r}{f} \arrow[swap]{d}{\varphi(g)} & G/H \arrow{d}{\phi(g)} \\%
+        X \arrow{r}{f}& G/H
+    \end{tikzcd}
+\end{intuition}
+
+\begin{corollary}
+$|X| = |G/H| = [G:H] \implies |X| \bigl\vert |G|$
+\end{corollary}
+
+\begin{corollary}
+$|\text{orbit}(x)| = [x] = |G/\text{stab}_G(x)| = [G:\text{stab}_G(x)]$
+\end{corollary}
+
+\begin{corollary}
+Consider $G$ acts on $X$, and the set of orbits under this action is $\{ X_i \}$, then
+\begin{align*}
+    |X| = \sum_{i} |X_i| = \sum_{i} |G/H_i|
+\end{align*}
+\end{corollary}
+\begin{observe}
+    
+\end{observe}
+\begin{prop}
+Let $G$ be a finite group, and $|G| = p^{r}$ where $p$ is a prime and $r\ge 1$, then $Z(G) \neq \{ 1 \}$.
+\end{prop}
+\begin{corollary}
+Suppose $|G| = p^{2}$, then $G$ is Abelian.
+\end{corollary}
+
+
+\newpage
+% \chapter*{Solvable groups}
+\begin{definition}[polynomial]
+    \begin{align*}
+        f(x) = a_n x^{n} +\cdots + a_0
+        \\f(x) = \Pi (x-\alpha_i)
+    \end{align*}
+    (in $\mathbb{C}$)
+\end{definition}
+
+

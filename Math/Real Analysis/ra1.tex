@@ -1,0 +1,287 @@
+\chapter{Measure Theory}
+
+\section{Motivation} \label{sec:}
+
+The motivation of measure theory is to measure the length, area, or volume of a region. Given a region $E \subseteq \mathbb{R}^{n}$, we would like to assign a non-negative number $\mu(E)$ to it. Intuitively, such function $\mu$ should satisfy the following:
+\begin{enumerate}
+    \item For countable sequence of disjoint sets, $E_1, E_2,\cdots $ we have
+    \begin{align*}
+        \mu(E_1 \cup E_2 \cdots ) = \mu(E_1) + \mu(E_2) +\cdots .
+    \end{align*}
+    \item If $E$ is congruent to $F$, then $\mu(E) = \mu(F)$.
+    \item $\mu(Q) = 1$, where $Q$ is the unit cube
+    \begin{align*}
+        Q = \{ x \in \mathbb{R}^{n} : 0\le x_j < 1 \text{ for } j = 1,\cdots ,n \}
+    \end{align*}
+\end{enumerate}
+
+But unfortunately, there conditions are mutually inconsistent. Consider the following example:
+\begin{example}
+    
+    Let $n=1$. Define an equivalence relation by the Axiom of Choice, we can build a set $N$ that contains one member of each equivalent class. Let $R = \mathbb{Q} \cap [0,1)$ (set of all rationals in $[0,1)$), and for each $r \in R$, let 
+    \begin{align*}
+        N_r = \{ x + r : x \in N \cap [0,1-r) \} \cup \{ x + r - 1 : x \in N \cap [1-r,1) \},
+    \end{align*}
+    Intuitively, we shifted the $N$ to the right by $r$ and then shifted the part sticks out beyond $[0,1)$ one to the left.
+\end{example}
+
+We shall show that
+\begin{corollary}
+ \normalfont There is no such $\mu: \mathcal{P}(\mathbb{R}) \to [0,\infty]$ exists that satisfies the aforementioned three conditions.
+\end{corollary}
+\begin{proof}
+    We proof by contradiction. First show that $\{ N_r \}$ partitions $[0,1)$:
+    \begin{itemize}
+        \item For all $y \in N$, if $y \in [x]$, then $y \in N_r$ where $r=x-y$ or $r=x-y+1$.
+        \item Let $y \in [0,1)$, if $y \in N_r \cap N_s$ ($r \neq  s$), then $y - r $ (or $y - r + 1$) and $y - s $ (or $y - s + 1$) would belong to two distinct equivalent classes, while their difference is a rational, so is a contradiction.
+    \end{itemize}
+    
+    Suppose there exists a $\mu: \mathcal{P}(\mathbb{R}) \to [0,1)$ satisfies the aforementioned three conditions, then by condition 1 and 2, we have $\mu(N) = \mu(N_s)$.
+    
+    Also since $R$ is countable, so by condition 1, we have $\mu([0,1)) = \sum\limits_{r \in R} \mu(N_r) = |R| \mu(N_r) $, but $|R| \mu(N_r)$ is either 0 (if $\mu(N_r) = 0$) and $\infty$ (if $\mu(N_r) > 0$), which contradicts condition 3. $\qed$
+\end{proof}
+
+\begin{remark}
+\begin{itemize}
+    \item Even weaken the condition 1 so that it only allows the additively holds for finite sequences it will still lead to contradiction when dimension $n\ge 3$. \footnote{See Complementary 1}
+    \item Such contradiction also arises in probability theory, just consider $X \sim \text{Uniform}[0,1]$, and for $E \subseteq X$, let $\mu(E) = \mathbb{P}(E)$.
+\end{itemize}
+\end{remark}
+
+\section{$\sigma$-algebras} \label{sec:}
+\begin{motivation}
+    Before measuring subsets, we first define the collection of subsets we want to give the measure to, that is, the collection of measurable sets. As we have seen it is not possible to give measure to the power set all the time.
+\end{motivation}
+\begin{definition}[Semialgebras]
+    \normalfont Let $X$ be a nonempty set. A \textbf{semialgebra} of $X$ is a nonempty collection $\mathcal{A}$ of subsets of $X$ that is
+    \begin{enumerate}
+        \item 
+    \end{enumerate}
+\end{definition}
+
+\begin{definition}[Algebra]
+ \normalfont Let $X$ be a nonempty set. An \textbf{algebra} of $X$ is a nonempty collection $\mathcal{A}$ of subsets of $X$ that is
+ \begin{enumerate}
+    \item closed under \textit{finite unions}: If $E_1,\cdots ,E_n \in \mathcal{A}$, then $E_1 \cup \cdots \cup E_n \in \mathcal{A}$,
+    \item and closed under complements: If $E \in \mathcal{A}$, then $E^{c} \in \mathcal{A}$.
+ \end{enumerate}
+\end{definition}
+
+\begin{definition}[$\sigma$-algebra]
+ \normalfont A \textbf{$\sigma$-algebra} is an algebra that is closed under \textit{countable unions}: 
+ 
+ If $E_1,E_2,\cdots \in \mathcal{A}$, then $E_1 \cup E_2 \cup \cdots \in \mathcal{A}$.
+\end{definition}
+
+\begin{corollary}
+ \normalfont 
+ \begin{enumerate}
+    \item Algebra ($\sigma$-algebra) is closed under finite (countable) intersections.
+    \item If $\mathcal{A}$ is an algebra, then $\varnothing \in \mathcal{A}$, and $X \in \mathcal{A}$.
+    \item If an algebra is closed under countable \textit{disjoint} unions, then it is a $\sigma$-algebra.
+    \item Let ${\mathcal{A}_i}$ be a family of $\sigma$-algebra, then $\bigcap_{i} \mathcal{A} $ is also a $\sigma$-algebra.
+ \end{enumerate}
+\end{corollary}
+
+By Corollary 2.2.4, we can define the following
+\begin{definition}
+ \normalfont Let $\mathcal{E} \subseteq \mathcal{P}(X)$, and let $\sigma(\mathcal{E})$ be the intersection of all $\sigma$-algebra containing $\mathcal{E}$, then we call $\sigma(\mathcal{E})$ the $\sigma$-alegbra \textbf{generated} by $\mathcal{E}$, in another word, $\sigma(\mathcal{E})$ is the smallest $\sigma$-algebra containing $\mathcal{E}$.
+\end{definition}
+
+\begin{lemma} \label{Lemma 2.1}
+\normalfont If $\mathcal{E} \subseteq \sigma(\mathcal{F})$, then $\sigma(\mathcal{E}) \subseteq \sigma(\mathcal{F})$.
+\end{lemma}
+
+\begin{definition}[Borel $\sigma$-algebra]
+ \normalfont Let $X$ be a metric space, the $\sigma$-alegbra generated by the collection of all open sets (or, equivalently, by the collection of all closed sets) in $X$ is called \textbf{Borel $\sigma$-algebra}, denoted by $\mathcal{B}_X$, and its members are called \textbf{Borel sets}. 
+\end{definition}
+
+\begin{proposition}
+ \normalfont $\mathcal{B}_\mathbb{R}$ is generated by each of the following:
+ \begin{enumerate}
+    \item the open intervals: $\mathcal{E}_1 = \{ (a,b) : a < b \}$.
+    \item the clased intervals: $\mathcal{E}_2 = \{ [a,b] : a < b \}$.
+    \item the half-open intervals: $\mathcal{E}_3 = \{ (a,b] : a < b \}$ or $\mathcal{E}_4 = \{ [a,b) : a < b \}$
+    \item the open rays: $\mathcal{E}_5 = \{ (a,\infty) : a \in \mathbb{R} \}$ or $\mathcal{E}_6 = \{ (-\infty,b) : a \in \mathbb{R} \}$.
+    \item the closed rays: $\mathcal{E}_7 = \{ [a,\infty) : a \in \mathbb{R} \}$ or $\mathcal{E}_8 = \{ (-\infty, a] : a \in \mathbb{R} \}$.
+ \end{enumerate}
+\end{proposition}
+
+\begin{proofidea}
+    To prove this proposition, we apply Proposition \ref{prop:1.1} and Lemma \Ref{Lemma 2.1}. Note that half intervals can be build by the intersection of a ray and the complement of another ray.
+\end{proofidea}
+
+\section{Product $\sigma$-algebra} \label{sec:}
+Given a collection of nonempty set $\{ X_\alpha\}$ and their $\sigma$-algebra $\mathcal{M}_\alpha$, we want to obtain a $\sigma$-algebra of the Cartesian product space $X_1 \times \cdots $, so we define:
+\begin{definition}[product $\sigma$-algebra]
+ \normalfont Let $\{ X_\alpha \}_{\alpha \in A}$ be an indexed collection of nonempty sets, $X = \Pi_{\alpha \in A} X_\alpha$ the Cartesian product space, and $\pi_\alpha : X \to X_\alpha$ the coordinate maps. If $\mathcal{M}_\alpha$ is a $\sigma$-algebra on $X_\alpha$ for each $\alpha$, the \textbf{product $\sigma$-algebra} on $X$ is the $\sigma$-algebra generated by:
+ \begin{align*}
+    \{ \pi_\alpha^{-1}(E_\alpha) : E_\alpha \in \mathcal{M}_\alpha, \alpha \in A \}
+ \end{align*}
+ we denote this \sal by $\bigotimes_{\alpha \in A} \mathcal{M}_\alpha$.
+\end{definition}
+
+\begin{proposition}
+ \normalfont If the index set $A$ is countable, then $\bigotimes_{\alpha \in A} \mathcal{M}_\alpha$ is the \sal generated by
+ \begin{align*}
+    \{ \Pi_{\alpha \in A} E_\alpha : E_\alpha \in \mathcal{M}_\alpha \}
+ \end{align*}
+\end{proposition}
+
+\begin{proposition}
+ \normalfont 
+\end{proposition}
+
+\begin{proposition}
+ \normalfont 
+\end{proposition}
+
+\begin{corollary}
+ \normalfont 
+\end{corollary}
+
+
+
+
+
+\section{Measures} \label{sec:}
+\begin{definition}[Measure]
+ \normalfont Let $X$ be a set equipped with a $\sigma$-algebra $\mathcal{M}$, we call $(X, \mathcal{M})$ \textbf{measurable space}, and $\mathcal{M}$ a collection of \textbf{measurable sets}. A \textbf{measure} on $(X, \mathcal{M})$ is a function $\mu: \mathcal{M} \to [0,\infty]$ such that
+ \begin{enumerate}
+    \item $\mu(\varnothing)= 0$,
+    \item (\textbf{countable additivity}) if $\{ E_j \}_1^{\infty}$ is a sequence of disjoint sets in $\mathcal{M}$, then $\mu(\bigcup_{1}^{\infty} E_j) = \sum_{1}^{\infty} \mu(E_j)$.
+ \end{enumerate}
+ We call $(X, \mathcal{M}, \mu)$ the measure space.
+ \\ Also, for $\mu$ satisfies \textbf{finite additively} instead of countable additively we call it \textbf{finite additive measure}.
+\end{definition}
+
+\begin{theorem}
+    \normalfont 
+    \begin{enumerate}
+       \item (\textbf{Monotonicity}) If $E, F \in \mathcal{M}$ and $E \subseteq F$, then $\mu(E) \le \mu(F)$.
+       \item (\textbf{Subadditivity}) If $\{ E_j \}_1^{\infty} \subseteq \mathcal{M}$, then $\mu(\bigcup_{1}^{\infty} E_j) \le \sum_{1}^{\infty} \mu(E_j)$.
+       \item (\textbf{Continuity from below}) If $\{ E_j \}_1^{\infty} \subseteq \mathcal{M}$ and $E_1 \subseteq E_2 \subseteq \cdots $, then $\mu(\bigcup_{1}^{\infty} E_j) = \lim_{j \to \infty} \mu(E_j)$.
+       \item (\textbf{Continuity from above}) If $\{ E_j \}_1^{\infty} \subseteq \mathcal{M}$, $E_1 \supseteq E_2 \supseteq \cdots $, and $\mu(E_1) < \infty$, then $\mu(\bigcap_{1}^{\infty} E_j) = \lim_{j \to \infty} \mu(E_j)$.
+    \end{enumerate}
+\end{theorem}
+\begin{proof}
+   skip for now
+\end{proof}
+
+\begin{definition}
+ \normalfont Let $(X, \mathcal{M}, \mu)$ be a measure space,
+ \begin{itemize}
+    \item If $\mu(X) < \infty$, $\mu$ is called \textbf{finite}.
+    \item If $E = \bigcup_{1}^{\infty} E_j$ where $E_j \in \mathcal{M}$ and $\mu(E_j) < \infty$ for all $j$, the set $E$ is said to be \textbf{$\sigma$-finite} for $\mu$, and if $E = X$ we call $\mu$ to be \textbf{$\sigma$-finite}.
+    \item If for each $E \in \mathcal{M}$ with $\mu(E) = \infty$ there exists $F \in \mathcal{M}$ with $F \subset E$ and $0 < \mu(F) < \infty$, $\mu$ is called \textbf{semifinite}.
+ \end{itemize}
+\end{definition}
+\begin{defintuition}
+    If the measure of $X$ is finite then $\mu$ called finite; if $X$ is the union of countable subsets with finite measure then $\mu$ called $\sigma$-finite.
+\end{defintuition}
+\begin{example}
+    Consider $(X, \mathcal{M}, \mu)$:
+    \begin{itemize}
+        \item $X$ is any nonempty set,
+        \item $\mathcal{M} = \mathcal{P}(X)$,
+        \item $\mu(E) = \sum_{x \in E}f(x)$, where $f$ any function from $X$ to $[0,\infty]$
+    \end{itemize}
+    then
+    \begin{enumerate}
+        \item $\mu$ is semifinite iff $f(x) < \infty$ for every $x \in X$,
+        \item $\mu$ is $\sigma$-finite iff $\mu$ is semifinite and $\{  x \in X : f(x) > 0 \}$ is countable.
+    \end{enumerate}
+    \begin{explaination}
+        \begin{enumerate}
+            \item If $f(x) = \infty$ for some $x \in X$, then $\mu(\{ x \}) = \infty$ and no subset of $\{ x \}$ has finite nonzero measure. On the other hand, if $f(x) < \infty$ for every $x \in X$, then for each $E \in \mathcal{M}$ with $\mu(E) = \infty$, there always exists a finite subset of $E$ with finite measure,
+            \item If $\mu$ is $\sigma$-finite, then for every $x \in X$, $x \in E_j$ for some $j$ (use Definite 2.7), since $\mu(E_j)<\infty$, so $f(x) = \mu(\{ x \}) < \mu(E_j)<\infty$. Assume that $\{  x \in X : f(x) > 0 \}$ is uncountable, then some $E_k$ is uncountable thus by Proposition \ref{1.2.1}, $\mu(E_k) = \infty$ \contra. On the other hand, if $\mu$ is semifinite and $S = \{  x \in X : f(x) > 0 \}$ is countable, then exists a bijection $h$ from $\mathbb{N}$ to $S$ and let $E = \bigcup_{1}^{\infty} E_j$ where each $E_j$ contains exact one element with positive measure: $h(j)$, then $\mu(E_j)<\infty$ since all other elements in $E_j$ are either 0 or negative.
+        \end{enumerate}
+    \end{explaination}
+    \begin{definition}
+     \normalfont Given $(X, \mathcal{M}, \mu)$ defined in Example 2.2,
+     \begin{itemize}
+        \item if $f(x) = 1$ for all $x$, $\mu$ is called \textbf{counting measure}, 
+        \item if for some $x_0 \in X$, $f$ is defined by $f(x_0) = 1$ and $f(x) = 0$  ($x \neq x_0$), $\mu$ is called the \textbf{point mass}.
+     \end{itemize}
+    \end{definition}
+\end{example}
+
+\begin{definition}[Complete measure]
+ \normalfont Let $(X, \mathcal{M}, \mu)$ be a measure space, a set $E \in \mathcal{M}$ such that $\mu(E) = 0$ is called a \textbf{null set}.
+
+ $\mu$ is called \textbf{complete} if its domain, $\mathcal{M}$, contains all the subsets of null sets.
+\end{definition}
+We defined complete measure because it is natural for a subset of null set to have measure $0$.
+
+\begin{theorem}
+ \normalfont Suppose that $(X, \mathcal{M}, \mu)$ is a measure space. Let 
+ \begin{align*}
+    \mathcal{N} = \{ N \in \mathcal{M} : \mu(N) = 0 \}
+ \end{align*}
+ and
+ \begin{align*}
+    \overline{M} = \{ E \cup F : E \in \mathcal{M} \text{ and } F \subseteq N \text{ for some } N \in \mathcal{N} \}.
+ \end{align*}
+ Then $\overline{M}$ is a $\sigma$-algebra, and there is a unique extension $\overline{\mu}$ of $\mu$ to a complete measure on $\overline{M}$.
+\end{theorem}
+\begin{proofidea}
+    set $\overline{\mu}(E \cup F) = \mu(E)$.
+\end{proofidea}
+
+
+\section{Outer Measures} \label{sec:}
+\begin{motivation}
+    Recall we approximate the area of a region using outer rectangles in calculus, now we develop an abstract way of describing it.
+\end{motivation}
+\begin{definition}[Outer Measure]
+ \normalfont An \textbf{Outer Measure} on a nonempty set $X$ is a function $\mu^{*} : \mathcal{P}(X) \to [0,\infty]$ that satisfies:
+ \begin{enumerate}
+    \item $\mu^{*}(\varnothing) = 0$,
+    \item (Monotonicity) $\mu^{*}(A) \le \mu^{*}(B)$ if $A \subseteq B$,
+    \item (Subadditivity) $\mu^{*}(\bigcup_{1}^{\infty}A_j) \le \sum_{1}^{\infty} \mu^{*}(A_j)$.
+ \end{enumerate}
+\end{definition}
+
+To give an outer measure on any subset, we define a collection of subsets $\mathcal{E}$ that is easy to measure. For example to measure the area of any regions in $\mathbb{R}^{2}$, we could define $\mathcal{E}$ to be rectangles on $\mathbb{R}^{2}$, and use countably many rectangles that covers the region to approximate the area, the area will be the infimum of all possible approximations.
+\begin{proposition}
+    \normalfont Let $\mathcal{E} \subseteq \mathcal{P}(X)$ be such that $\varnothing \in \mathcal{E}$, $X \in \mathcal{E}$, and $\rho : \mathcal{E} \to [0,\infty]$ be such that $\rho(\varnothing)=0$. For any $A \subseteq X$, define
+    \begin{align*}
+        \mu^{*}(A) = \inf\{ \sum\limits_{j=1}^{\infty} \rho(E_j) : E_j \in \mathcal{E} \text{ and } A \subseteq \bigcup_{j = 1}^{\infty} E_j \}
+    \end{align*}
+    Then $\mu^{*}$ is an outer measure.
+\end{proposition}
+\begin{proof}
+skip for now.
+\end{proof}
+
+To obtain a complete measure from an outer measure we need to restrict the collection a bit, and it turns out to be that if we restrict $\mathcal{P}(X)$ to $\mu^{*}$-measurable sets as defined follow, $\mu^{*}$ becomes a complete measure.
+\begin{definition}[$\mu^{*}$-measurable]
+ \normalfont If $\mu^{*}$ is an outer measure on $X$, a set $A \subseteq X$ is called \textbf{$\mu^{*}$-measurable} if
+ \begin{align*}
+    \mu^{*}(E) = \mu^{*}(E \cap A) + \mu^{*}(E \cap A^{c}) \text{ for all } E \subseteq X
+ \end{align*}
+\end{definition}
+
+\begin{theorem}[Caratheodory Extension Theorem]
+ \normalfont If $\mu^{*}$ is an outer measure on $X$, the collection $\mathcal{M}$ of $\mu^{*}$-measurable sets is a $\sigma$-algebra, and the restriction of $\mu^{*}$ to $\mathcal{M}$ is a complete measure.
+\end{theorem}
+
+Now we can extend measures from algebra to \sal.
+
+\begin{definition}[Premeasure]
+ \normalfont If $\mathcal{A} \subseteq \mathcal{P}(X)$ is an algebra, a function $\mu_0 : \mathcal{A} \to [0,\infty]$ is called \textbf{premeasure} if
+ \begin{enumerate}
+    \item $\mu_0(\varnothing)=0$,
+    \item if $\{ A_j \}_{1}^{\infty}$ is a sequence of disjoint sets in $\mathcal{A}$ such that $\bigcup_{1}^{\infty}A_j \in \mathcal{A}$, then $\mu_0(\bigcup_{1}^{\infty}A_j) = \sum_{1}^{\infty}\mu_0(A_j)$.
+ \end{enumerate}
+\end{definition}
+
+
+
+\section{Borel Measures} \label{sec:}
+\begin{motivation}
+    Now we want to measure the subsets of $\mathbb{R}$ based on the idea that the measure of an interval is its length.
+\end{motivation}
+
+
+

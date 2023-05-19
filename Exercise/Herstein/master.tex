@@ -1,0 +1,31 @@
+\documentclass[a4paper,11pt,oneside]{book}
+\usepackage[DIV=14,BCOR=2mm,headinclude=true,footinclude=false]{typearea}
+\input{./preamble.tex}
+% \usepackage{cmbright}
+
+\usepackage{faktor}
+
+\makeatletter
+\DeclareRobustCommand*{\mfaktor}[3][]
+{
+   { \mathpalette{\mfaktor@impl@}{{#1}{#2}{#3}} }
+}
+\newcommand*{\mfaktor@impl@}[2]{\mfaktor@impl#1#2}
+\newcommand*{\mfaktor@impl}[4]{
+   \settoheight{\faktor@zaehlerhoehe}{\ensuremath{#1#2{#3}}}%
+   \settoheight{\faktor@nennerhoehe}{\ensuremath{#1#2{#4}}}%
+      \raisebox{-0.5\faktor@zaehlerhoehe}{\ensuremath{#1#2{#3}}}%
+      \mkern-4mu\diagdown\mkern-5mu%
+      \raisebox{0.5\faktor@nennerhoehe}{\ensuremath{#1#2{#4}}}%
+}
+\makeatother
+
+\title{Title}
+\begin{document}
+    \maketitle
+    % start lessons
+    \input{les_01.tex}
+    \input{les_02.tex}
+    \input{les_03.tex}
+    % end lessons
+\end{document}

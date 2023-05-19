@@ -1,0 +1,16 @@
+% New command
+%% Math
+\usepackage{stmaryrd} % for \lightning
+\newcommand\contra{\scalebox{1.1}{$\lightning$}}
+
+%% CS
+\newcommand\qacc{\ensuremath{q_{\text{accept} }}}
+\newcommand\qrej{\ensuremath{q_{\text{reject} }}}
+
+% custom
+\newcommand{\proofideaname}{Proof Idea}
+\newenvironment{proofidea}{\noindent\textbf{\color{second}\proofideaname}}{\par}
+\newcommand{\previouslyseenname}{Previously Seen}
+\newenvironment{previouslyseen}{\noindent\textbf{\color{main}\previouslyseenname}}{\par}
+\newcommand{\observename}{Observe}
+\newenvironment{observe}{\noindent\textbf{\color{third}\observename}}{\par}

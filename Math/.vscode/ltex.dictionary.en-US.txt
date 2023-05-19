@@ -1,0 +1,3 @@
+supremum
+semifinite
+additivity

@@ -1,0 +1,283 @@
+{
+	// Place your snippets for latex here. Each snippet is defined under a snippet name and has a prefix, body and 
+	// description. The prefix is what is used to trigger the snippet and the body will be expanded and inserted. Possible variables are:
+	// $1, $2 for tab stops, $0 for the final cursor position, and ${1:label}, ${2:another} for placeholders. Placeholders with the 
+	// same ids are connected.
+	// Example:
+	// "Print to console": {
+	// 	"prefix": "log",
+	// 	"body": [
+	// 		"console.log('$1');",
+	// 		"$2"
+	// 	],
+	// 	"description": "Log output to console"
+	// }
+
+	// Special characters
+	"space": {"prefix": "vspace","body":"\\texttt{\\char32}"},
+
+	// Structures and alias
+	"myname": {"prefix": "myname", "body": "{\\large Xuzhe Xia}"},
+    "section": {"prefix": "sec","body":"\\section{$1} \\label{sec:$2}\n\n$0"},
+    "subsection": {"prefix": "ss","body":"\\subsection{$1} \\label{sec:$2}\n\n$0"},
+	"notebf": {"prefix": "nbf","body":"\\begin{note}\n\\textbf{$1}\n\\end{note}\n\n$0"},
+	"shaded": {"prefix": "shd","body":"\\begin{shaded}\n\\textbf{$1} \\newline\n $2\n\\end{shaded}\n\n$0"},
+	"center": {"prefix": "ctr","body":"\\begin{center}\n $1 \n\\end{center}\n\n$0"},
+	"newline": {"prefix": "nl","body":"\\newline"},
+
+	// Math structure
+	"definition": {"prefix": "def","body":"\\begin{definition}[$1]\n$2\n\\end{definition}\n\n$0"},
+	"proof": {"prefix": "pf","body":"\\begin{proof}\n$1\n\\end{proof}\n\n$0"},
+	"theorem": {"prefix": "thm","body":"\\begin{theorem}[$1]\n$2\n\\end{theorem}\n\n$0"},
+	"lemma": {"prefix": "lem","body":"\\begin{lemma}\n$1\n\\end{lemma}\n\n$0"},
+	"remark": {"prefix": "rmk","body":"\\begin{remark}\n$1\n\\end{remark}\n\n$0"},
+	"corollary": {"prefix": "cor","body":"\\begin{corollary}\n$1\n\\end{corollary}\n\n$0"},
+	"notation": {"prefix": "nota","body":"\\begin{notation}\n$1\n\\end{notation}\n\n$0"},
+	"proposition": {"prefix": "prop","body":"\\begin{prop}\n$1\n\\end{prop}\n\n$0"},
+	"eg": {"prefix": "eg","body":"\\begin{eg}\n$1\n\\end{eg}\n\n$0"},
+
+	// Algebra operation
+	"triangleleft": {"prefix": "nor","body":"\\triangleleft"},
+
+    // Font variants
+	"text": {"prefix": "txt","body":"\\text{ $1 } $0"},
+    "textit": {"prefix": "tit","body":"\\textit{$1} $0"},
+    "textbf": {"prefix": "tbf","body":"\\textbf{$1} $0"},
+    "mathbf": {"prefix": "mbf","body":"\\mathbf{$1}$0"},
+	"mathbb": {"prefix": "mbb","body":"\\mathbb{$1}$0"},
+    "mathbf-sub": {"prefix": "bs","body":"\\mathbf{$1}_{$2}$0"},
+    "mathcal": {"prefix": "c","body":"\\mathcal{$1}$0"},
+    "mathcal-sub": {"prefix": "cs","body":"\\mathcal{$1}_{$2}$0"},
+    "mathrm": {"prefix": "r","body":"\\mathrm{$1}$0"},
+    "question": {"prefix": "qus","body":"\\colorbox{cyan}{\\textbf{$1}} $0"},
+
+    // Brackets
+    "parentheses": {"prefix": "(","body":"\\left ( $0 \\right"},
+    "brace": {"prefix": "{","body":"\\left \\{ $0 \\right \\"},
+    "brackets": {"prefix": "[","body":"\\left [ $0 \\right"},
+    "angles": {"prefix": "<","body":"\\left\\langle $0 \\right\\rangle"},
+    "nparentheses": {"prefix": "(n","body":"\\left  (\n\t$0\n\\right"},
+    "nbrace": {"prefix": "{n","body":"\\left  \\{\n\t$0\n\\right \\"},
+    "nbrackets": {"prefix": "[n","body":"\\left  [\n\t$0\n\\right"},
+    "nangles": {"prefix": "<n","body":"\\left\\langle\n\t$0\n\\right\\rangle"},
+    
+	// Logic
+	"forall": {"prefix": "fall","body":"\\forall $0"},
+	"exists": {"prefix": "exi","body":"\\exists $0"},
+	"implies": {"prefix": "imp","body":"($1)\\implies ($2)$0"},
+
+	// Comp_sci
+	"NP": {"prefix": "npclass","body":"\\textbf{NP} $0"},
+	"P": {"prefix": "pclass","body":"\\textbf{P} $0"},
+	"NP-Completeness": {"prefix": "npcompclass","body":"\\textbf{NP-Complete} $0"},
+	"reduce": {"prefix": "reduce","body":"$1\\le_{$2} $0"},
+
+    // Math
+    "frac": {"prefix": "frac","body":"\\frac{${1:1}}{${2:2}} $0"},
+    "nonumber-new-line": {"prefix": "nn","body":"\\nonumber\\\\\\\\"},
+    "matrix-2x2": {"prefix": "mat2","body":"\\left( \\begin{array}{cc}\n\t${1:0} & ${2:0} \\\\\\\\ \n\t${3:0} & ${4:0}\n\\end{array} \\right)\n$0"},
+    "matrix-3x3": {"prefix": "mat3","body":"\\left( \\begin{array}{ccc}\n\t${1:0} & ${2:0} & ${3:0}\\\\\\\\ \n\t${4:0} & ${5:0} & ${6:0}\\\\\\\\ \n\t${7:0} & ${8:0} & ${9:0}\n\\end{array} \\right)\n$0"},
+    "sumit": {
+		"prefix": "sum",
+		"body": [
+			"\\\\sum\\\\limits_{$1}^{$2} $3",
+		 ],
+		 "description": "Log output to console"
+	},
+	"limit": {
+		"prefix": "lim",
+		"body": [
+		"\\\\lim\\\\limits_{$1}^{$2} $3",
+					],
+		"description": "Log output to console"
+	},
+
+    // Structures
+    "case": {"prefix": "case","body":"\\begin{cases}\n\t${1:0} & ${2:(x>0)}\\\\\\ \n\t${3:1} & ${4:(x<0)}\n\\end{cases}"},
+    "align": {"prefix": "ali","body":"\\begin{align*}\n\t$0\n\\end{align*}"},
+    "align-numberred": {"prefix": "en","body":"\\begin{align}\n\t\\label{eq:$1}\n\t$0\n\\end{align}"},
+    "figure": {"prefix": "fig","body":"Fig.~\\ref{fig:$1}.\n\n\\begin{figure}[htbp] \\centering\n\t\\includegraphics[width=0.${2:8}\\textwidth]{$1}\n\t\\caption{\\label{fig:$1}\n\t\t$0\n\t}\n\\end{figure}"},
+    "mfig": {"prefix": "mfig","body":"\\marginnote{\\includegraphics[width=0.${2:5}\\textwidth]{$1}} $0"},
+    "itemize": {"prefix": "item","body":"\\begin{itemize}\n\t\\item $0\n\\end{itemize}"},
+    "enumerate": {"prefix": "enum","body":"\\begin{enumerate}\n\t\\item $0\n\\end{enumerate}"},
+    //"table": {"prefix": "tab","body":"\\begin{table}[htbp]\n\\begin{center} \\begin{tabular}{|l|l|l} \\hline\n\t${2:1} & ${3:1} & ${4:1} \\hline\n\t${5:1} & ${6:1} & ${7:1} \\hline\n\\end{tabular\\end{center}\n\\caption{\n\t\\label{tab:$1}\n}\n\\end{table}"},
+    
+    // Document templates
+    //"booktex": {"prefix": "booktex","body":"\\documentclass[11pt,a5paper,footinclude=true,headinclude=true]{scrbook}\n\\usepackage[T1]{fontenc}\n\\usepackage[linedheaders,parts,pdfspacing]{classicthesis}\n\\usepackage{amssymb,lipsum,amsthm,amsmath,graphicx,color,microtype}\n\\begin{document}\n\n$0\n\n\\end{document}"},
+    //"title": {"prefix": "title","body":"\\title{$1}\n\\author{Xuzhe Xia}\n\n\\maketitle\n\n"},
+    //"bib": {"prefix": "bib","body":"\\begin{thebibliography}{999}\n\t$0\n\\end{thebibliography}\n"},
+
+    // Greek letters
+    
+
+	"alpha": {
+		"prefix": "la",
+		"body": "$\\alpha$ ",
+		"description": "Insert alpha"
+	},
+	"beta": {
+		"prefix": "lb",
+		"body": "$\\beta$ ",
+		"description": "Insert beta"
+	},
+	"chi": {
+		"prefix": "lc",
+		"body": "$\\chi$ ",
+		"description": "Insert chi"
+	},
+	"delta": {
+		"prefix": "ld",
+		"body": "$\\delta$ ",
+		"description": "Insert delta"
+	},
+	"epsilon": {
+		"prefix": "le",
+		"body": "$\\epsilon$ ",
+		"description": "Insert epsilon"
+	},
+	"varepsilon": {
+		"prefix": "lve",
+		"body": "$\\varepsilon$ ",
+		"description": "Insert varepsilon"
+	},
+	"phi": {
+		"prefix": "lf",
+		"body": "$\\phi$ ",
+		"description": "Insert phi"
+	},
+	"varphi": {
+		"prefix": "lvf",
+		"body": "$\\varphi$ ",
+		"description": "Insert varphi"
+	},
+	"gamma": {
+		"prefix": "lg",
+		"body": "$\\gamma$ ",
+		"description": "Insert gamma"
+	},
+	"eta": {
+		"prefix": "let",
+		"body": "$\\eta$ ",
+		"description": "Insert eta"
+	},
+	"kappa": {
+		"prefix": "lk",
+		"body": "$\\kappa$ ",
+		"description": "Insert kappa"
+	},
+	"lambda": {
+		"prefix": "ll",
+		"body": "$\\lambda$ ",
+		"description": "Insert lambda"
+	},
+	"mu": {
+		"prefix": "lm",
+		"body": "$\\mu$ ",
+		"description": "Insert mu"
+	},
+	"nu": {
+		"prefix": "ln",
+		"body": "$\\nu$ ",
+		"description": "Insert nu"
+	},
+	"pi": {
+		"prefix": "lp",
+		"body": "$\\pi$ ",
+		"description": "Insert pi"
+	},
+	"theta": {
+		"prefix": "lth",
+		"body": "$\\theta$ ",
+		"description": "Insert theta"
+	},
+	"vartheta": {
+		"prefix": "lvt",
+		"body": "$\\vartheta$ ",
+		"description": "Insert vartheta"
+	},
+	"rho": {
+		"prefix": "lr",
+		"body": "$\\rho$ ",
+		"description": "Insert rho"
+	},
+	"sigma": {
+		"prefix": "ls",
+		"body": "$\\sigma$ ",
+		"description": "Insert sigma"
+	},
+	"tau": {
+		"prefix": "lt",
+		"body": "$\\tau$ ",
+		"description": "Insert tau"
+	},
+	"omega": {
+		"prefix": "lo",
+		"body": "$\\omega$ ",
+		"description": "Insert omega"
+	},
+	"xi": {
+		"prefix": "lx",
+		"body": "$\\xi$ ",
+		"description": "Insert xi"
+	},
+	"psi": {
+		"prefix": "lps",
+		"body": "$\\psi$ ",
+		"description": "Insert psi"
+	},
+	"zeta": {
+		"prefix": "lz",
+		"body": "$\\zeta$ ",
+		"description": "Insert zeta"
+	},
+	"Delta": {
+		"prefix": "LD",
+		"body": "$\\Delta$ ",
+		"description": "Insert Delta"
+	},
+	"Phi": {
+		"prefix": "LPH",
+		"body": "$\\Phi$ ",
+		"description": "Insert Phi"
+	},
+	"Gamma": {
+		"prefix": "LG",
+		"body": "$\\Gamma$ ",
+		"description": "Insert Gamma"
+	},
+	"Theta": {
+		"prefix": "LTH",
+		"body": "$\\Theta$ ",
+		"description": "Insert Theta"
+	},
+	"Lambda": {
+		"prefix": "LL",
+		"body": "$\\Lambda$ ",
+		"description": "Insert Lambda"
+	},
+	"Xi": {
+		"prefix": "LX",
+		"body": "$\\Xi$ ",
+		"description": "Insert Xi"
+	},
+	"Psi": {
+		"prefix": "LPS",
+		"body": "$\\Psi$ ",
+		"description": "Insert Psi"
+	},
+	"Sigma": {
+		"prefix": "LS",
+		"body": "$\\Sigma$ ",
+		"description": "Insert Sigma"
+	},
+	"Omega": {
+		"prefix": "LW",
+		"body": "$\\Omega$ ",
+		"description": "Insert Omega"
+	},
+    "hbar": {
+		"prefix": "lh",
+		"body": "$\\hbar$ ",
+		"description": "Insert hbar"
+	}
+}

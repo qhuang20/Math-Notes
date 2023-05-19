@@ -1,0 +1,81 @@
+\newpage
+\begin{center}
+    {\LARGE \bf Group Theory}
+\end{center}
+
+\section{//} \label{sec:}
+
+\begin{question}
+    There is a 1-1 correspondence between the set of left cosets of $H$ in $G$ and the set of right cosets of $H$ in $G$.
+\end{question}
+Consider the function: $f(Ha) = a^{-1}H$.
+
+\begin{question}
+    Center of Symmetric group is trivial for $n\ge 3$.
+\end{question}
+\begin{itemize}
+    \item Choose arbitrary $\pi(i) = j$, where $i\neq j$.
+    \item Choose $\rho = (j k)$, where $k\neq i,j$.
+    \item $\rho \pi \rho^{-1}(i) = k \neq j = \pi(i)$.
+    \item Thus, for every element in $S_n$ not equal to $e$, there exists another element does not commute with it.
+\end{itemize}
+
+\begin{question}
+    If $H < G$, let $N = \bigcap_{x \in G} xHx^{-1}$, then $N \triangleleft G$. 
+\end{question}
+
+\begin{question}
+    $U_n$ is cyclic if and only if $n=1,2,4,p^{k},2p^{k}$ where $p$ is an odd prime.
+\end{question}
+To prove it, there are some lemmas.
+\begin{remark}
+\begin{enumerate}
+    \item If $n=p_1^{q_1}\cdots p_k^{q_k}$ be the prime factorization of $n$, then
+    \begin{align*}
+        \mathbb{Z}/n\mathbb{Z} \cong \mathbb{Z}/p_1^{q_1}\mathbb{Z} \times \cdots \times \mathbb{Z}/p_k^{q_k}\mathbb{Z}
+    \end{align*}
+    \item For an abelian $G$, if $G \cong \mathbb{Z}_m \times \mathbb{Z}_n$, then $G$ is cyclic if and only if $\operatorname{gcd}(m,n)=1$.
+\end{enumerate}
+\end{remark}
+
+\begin{question}
+    If $G$ is a finite group, then the number of elements in the double coset $AxB$ is
+    \begin{align*}
+        \frac{|A||B|}{|A \cap xBx^{-1}|}
+    \end{align*}
+\end{question}
+\begin{align*}
+    |AxB| &=|AxBx^{-1}| \text{ (cosets are of the same size) }
+    \\ &= |A(xBx^{-1})| \text{ (association) }
+    \\ &= \frac{|A||xBx^{-1}|}{|A \cap xBx^{-1}|} 
+    \\ &= \frac{|A||B|}{|A \cap xBx^{-1}|}
+\end{align*}
+
+\begin{question}
+If $H < G$ s.t. the product of two right cosets of $H$ in $G$ is again a right coset of $H$ in $G$, then $H \triangleleft G$.
+\end{question}
+
+\begin{question} ~
+    \begin{enumerate}
+        \item Let $H \triangleleft G$ and $N \triangleleft G$, then $H \cap N \triangleleft G$.
+        \item Let $H < G$ and $N \triangleleft G$, then $H \cap N \triangleleft H$.
+        \item Let $H \triangleleft G$ and $N \triangleleft G$, then $HN \triangleleft G$.
+    \end{enumerate}
+\end{question}
+
+\begin{question}
+    If every subgroup of $G$ is normal in $G$, then it is \textbf{not} necessary that $G$ is Abelian.
+\end{question}
+
+\begin{remark}
+    A useful example is Quaternary group: $\{ \pm 1, \pm i, \pm j, \pm k \}$, which has 4 non-trivial subgroups: ...
+\end{remark}
+
+\begin{question}
+    Suppose $H$ is the only subgroup of order $|H|$ in the finite group $G$, then $H \triangleleft G$.
+\end{question}
+
+\begin{question}
+    For dihedral group $D_n$, if $n$ is odd, then $|Z(D_N)| = \{ e \}$, otherwise is larger than $\{ e \}$.
+\end{question}
+

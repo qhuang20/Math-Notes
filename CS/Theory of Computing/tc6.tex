@@ -1,0 +1,209 @@
+\setcounter{chapter}{1}
+\chapter{Communication complexity}
+
+
+\begin{definition}[Deterministic Communication Complexity]
+For $f: X \times Y \to Z$, the \textit{Deterministic Communication Complexity} is
+\begin{align*}
+    D(f) = \min_{\text{protocal computing} f} \{ \max_{x \in X, y \in Y} \{ \text{number of bits on input (x,y)} \} \}
+    \\ = \min_{\text{protocal tree } T \text{ for } f} \text{depth}(T)
+ \end{align*}
+\end{definition}
+
+\begin{observe}
+    For any arbitrary tree, number of leaves $\le 2^{\text{depth}}$.
+\end{observe}
+
+\begin{definition}[Rectangle]
+A \textit{rectangle} in $X \times Y$ is a set of the form $S = A \times B$ where $A \subseteq X$ and $B \subseteq Y$.
+\end{definition}
+
+\begin{observe}
+    $X$ is a rectangle if and only if
+    \begin{align*}
+        \left( (x,y) \in S \land (x',y')\in S \right) \implies \left( (x,y') \in S \land (x',y)\in S \right)
+    \end{align*}
+\end{observe}
+
+\begin{remark}
+Let $v$ be a node in a protocol tree. Let $R_v$ be inputs that arrives at $v$, then $R_v$ is a rectangle.
+\end{remark}
+
+\begin{definition}[f-monochromatic]
+A rectangle $R$, is \textit{f-monochromatic} if $\exists z \in Z$ s.t.t $\forall (x,y) \in R$, $f(x,y)=z$.
+\end{definition}
+
+\begin{remark}
+If $v$ is a leaf, then $R_v$ is an f-monochromatic rectangle.
+\end{remark}
+
+\begin{remark} ~
+Every input $(x,y)$ must arrive at exactly one leaf $v$. So $(x,y)\in R_v$. 
+\end{remark}
+
+\begin{prop}
+The set $\{ R_v : v \text{ is a leaf of } T \}$ is a partition of $X \times Y$ into f-monochromatic rectangles.
+\end{prop}
+
+\begin{definition}[C-partition]
+$C^{\text{partition}}(f) = \min\{ |\mathcal{R}| : \mathcal{R} \text{ is a f-monochromatic partition }\}$.
+\end{definition}
+
+$C^{\text{partition}}(f)$ is the minimum number of rectangles needed in any f-monochromatic partition.
+
+\begin{corollary}
+For any protocol tree $T$, $C^{\text{partition}}(f) \le $ number of leaves in $T$.
+\end{corollary}
+
+\begin{corollary}
+$C^{\text{partition}}(f) \le \min_{\text{protocal tree}}\{ 2^{\text{depth}}(T)\}$
+\end{corollary}
+
+\begin{theorem}
+    \begin{align*}
+        \left\lceil \log_2 C^{\text{partition}}(f) \right\rceil  \le \min_{\text{protocal tree}}\{ \text{depth}(T)\} = D(T)
+    \end{align*}
+\end{theorem}
+
+\begin{definition}[Fooling set]
+TODO
+\end{definition}
+
+\begin{prop}
+\begin{align*}
+    C^{\text{partition}}(f) \ge |S| + 1
+\end{align*}
+unless $f$ is constant
+\end{prop}
+
+\begin{corollary}
+    \begin{align*}
+        D(f) \ge \left\lceil \log_2 (|S| + 1) \right\rceil 
+    \end{align*}
+\end{corollary}
+
+\begin{eg}
+    Let $EQ_n : \{ 0,1 \}^{n} \times \{ 0,1 \}^{n} \to \{ 0 , 1 \} $
+    \begin{align*}
+        EQ_n (x,y) = \begin{cases}
+            1 & \text{ if } x = y \\
+            0 & \text{o.w.} \\
+        \end{cases}
+    \end{align*}
+    The upper bound: $D(EQ_n) \le n + 1$
+    \\The fooling set is $S = \{ (x,x) : x \in \{ 0,1 \}^{n} \}$, since:
+    \begin{enumerate}
+        \item $EQ_n(x,y) = 1, \forall x \in \{ 0,1 \}^{n}$.
+        \item Consider $(x,x)$ and $(x',x') \in S$ where $x \neq x'$, we have $EQ_n(x,x') = EQ_n(x',x) = 0$.
+    \end{enumerate}
+    Conclude: $D(EQ_n) \ge \left\lceil \log_2(2^{n} + 2) \right\rceil = n + 1$
+\end{eg}
+
+\begin{definition}[Nondeterministic communication complexity]
+\textit{Nondeterministic communication complexity} of $f$ is $N(f)$
+    \begin{align*}
+        = \min_{\text{nondet. protocal}} \{ \max_{x, y, \text{ s.t. } f(x,y) = 1} \{ \text{number of bits on a certificate for input }x,y \} \}
+    \end{align*}
+\end{definition}
+
+\begin{eg}
+    For $f = EQ_n$:
+    \\ \textbf{Protocol 1:} 
+    \begin{enumerate}
+        \item Prover lets $z = (x,y)$
+        \item Alice accepts if $x = z[1] = z[2]$
+        \item Bob accepts if $x = z[2] = z[1]$
+    \end{enumerate}
+    In this case, $z$ is of length $2n$.
+    \\ \textbf{Protocol 2:} 
+    \begin{enumerate}
+        \item Prover lets $z = x$
+        \item Alice accepts if $z = y$
+        \item Bob accepts if $z = y$
+    \end{enumerate}
+    (Explanation: If $x = y$, Prover sets $z=x$, both accepts; otherwise, there is no string $z$ that will make both accepts.)
+    \\In this case, $z$ is of length $n$.
+\end{eg}
+\begin{remark}
+    \begin{align*}
+        N(EQ_n) \le n
+    \end{align*}
+\end{remark}
+
+\begin{eg}
+    For $f = \neg EQ_n$:
+    \\ \textbf{Protocol 1:} silly protocol, in this case, $z$ is of length $2n$.
+    \\ \textbf{Protocol 2:} 
+    \begin{enumerate}
+        \item Prover lets $z = (i,b)$
+        \item Alice accepts if $x_i \neq b$
+        \item Bob accepts if $y_i = b$
+    \end{enumerate}
+    (Explanation: If $x \neq y$, Prover finds $i$ s.t. $x_i \neq y_i$, lets $b = y_i$, both will accepts; otherwise if $x = y$, one of them must reject regardless of $z$.)
+    \\In this case, $z$ is of length $\left\lceil \log(n) \right\rceil + 1$.
+\end{eg}
+\begin{remark}
+    \begin{align*}
+        coN(EQ_n) = N(\neg EQ_n) \le \left\lceil \log(n) \right\rceil + 1
+    \end{align*}
+\end{remark}
+
+\subsection{Cover} \label{sec:}
+
+\begin{definition}[Cover]
+    The set $R = \{ R_1,\cdots ,R_n \}$ is a 1-cover of the 1-entries if:
+    \begin{enumerate}
+        \item Each $R_i$ is a rectangle where all values are all equal to 1.
+        \item Each $(x,y)\in X\times Y$ with $f(x,y)=1$ is contained in at least one $R_i$ (Needn't be disjoint)
+    \end{enumerate}
+\end{definition}
+
+\begin{definition}
+    \begin{align*}
+        C^{\text{1-cover}}(f) = \min\{ |R| : R \text{ is a cover of the 1-entries} \}
+    \end{align*}
+    \begin{align*}
+        C^{\text{0-cover}}(f) = \min\{ |R| : R \text{ is a cover of the 0-entries} \} = C^{\text{1-cover}}(\neg f)
+    \end{align*}
+\end{definition}
+
+\begin{observe}
+    \begin{align*}
+        C^{\text{partition}}(f) \ge C^{\text{1-cover}}(f) + C^{\text{0-cover}}(f)
+    \end{align*}
+\end{observe}
+
+\begin{remark}
+    \begin{align*}
+        C^{\text{0-cover}}(DIST_n) \le n
+    \end{align*}
+    \begin{align*}
+        C^{\text{0-cover}}(EQ) \le 2n
+    \end{align*}
+\end{remark}
+
+\begin{previouslyseen}
+    \begin{align*}
+        D(f) \ge \left\lceil \log_2(C^{\text{partition}}(f)) \right\rceil 
+    \end{align*}
+\end{previouslyseen}
+
+\begin{theorem}
+    \begin{align*}
+        N(f) = \left\lceil \log_2(C^{\text{1-cover}}(f)) \right\rceil 
+    \end{align*}
+    \begin{align*}
+        coN(f) = \left\lceil \log_2(C^{\text{0-cover}}(f)) \right\rceil 
+    \end{align*}
+\end{theorem}
+
+\begin{corollary}
+\begin{align*}
+    D(f) \ge N(f)
+    \\ D(f) \ge coN(f)
+\end{align*}
+\end{corollary}
+
+\begin{observe}
+    Deterministic communication complexity is closed under complement, but Nondeterministic communication complexity does not.
+\end{observe}

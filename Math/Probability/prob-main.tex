@@ -1,0 +1,35 @@
+\documentclass[11pt]{elegantbook}
+
+\input{./preamble.tex}
+
+\title{Probability Theory}
+% \subtitle{xxx}
+
+\extrainfo{\textcolor{red}{\bfseries In progress}}
+
+% \logo{cirno9.png}
+\cover{white.jpg}
+
+% \author{Zhe}
+
+% modify the color in the middle of titlepage
+% \definecolor{customcolor}{RGB}{32,178,170}
+% \colorlet{coverlinecolor}{customcolor}
+\usepackage{cprotect}
+
+\addbibresource[location=local]{reference.bib} % bib
+
+\begin{document}
+
+\maketitle
+
+\frontmatter
+\tableofcontents
+
+\mainmatter
+  % start lessons
+  \input{p1.tex}
+  % \input{tc1.tex}
+  % end lessons
+
+\end{document}

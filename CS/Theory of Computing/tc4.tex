@@ -1,0 +1,83 @@
+\setcounter{chapter}{1}
+\chapter{The Class NP}
+\section{Definition} \label{sec:}
+There are two equivalent definitions of \textbf{NP}, the first one is through Nondeterministic Turing machine.
+\begin{definition}[NTIME]
+\begin{align*}
+    \mathbf{NTIME}(t(n)) = \{ L : L \text{ is a language decided by an }O(t(n)) \\\text{ time non-deterministic Turing Machine}\}
+\end{align*}
+\end{definition}
+
+\begin{definition}[NP]
+\begin{align*}
+    \mathbf{NP} = \bigcup_{k} \mathbf{NTIME}(n^{k})
+\end{align*}
+\end{definition}
+\begin{note}
+    \textbf{NP} stands for nondeterministic polynomial time.
+\end{note}
+The second one relies on the definition of a \textbf{verifier}.
+\begin{definition}[Verifier]
+A \textbf{verifier} for a language $A$ is an algorithm $V$, where
+\begin{align*}
+    A = \{ w : V \text{ accepts } \left<w,c \right> \text{ for some string } c\}
+\end{align*}
+($c$ is called a \textbf{certificate} or \textbf{proof})
+\end{definition}
+
+\begin{observe} ~
+    \begin{itemize}
+        \item If $V$ accepts $\left<w,c \right>$ then $w \in L$.
+        \item If $V$ rejects $\left<w,c \right>$ then either
+        \begin{itemize}
+            \item $w \in L$, but the certificate $c$ is wrong, or
+            \item $w \not \in L$, then no possible $c$ works.
+        \end{itemize}
+    \end{itemize}
+\end{observe}
+
+\begin{intuition}
+    A certificate $c$ can be understood as a solution to the problem $w$, and the verifier $V$ verifies whether the given input is a certificate of $w$.
+\end{intuition}
+
+\begin{definition}[NP]
+\textbf{NP} is the class of languages that have polynomial time verifiers.
+\end{definition}
+
+\begin{intuition}
+    Under the second definition, \textbf{NP} can be understood as the set of problems that when given a string, we can verify whether this string is a certificate in polynomial time.
+\end{intuition}
+
+\begin{theorem}
+Definition 5 and 7 of \textbf{NP} are equivalent.
+\end{theorem}
+\begin{proofidea}
+    We show how to convert a polynomial time verifier to an equivalent polynomial time NTM and vice versa. The NTM simulates the verifier by guessing the certificate. The verifier simulates the NTM by using the accepting branch as the certificate.
+\end{proofidea}
+
+\section{Examples} \label{sec:}
+\subsection{CLIQUE} \label{sec:}
+
+\begin{align}
+    \mathbf{CLIQUE} = \{ \left<G,k \right> : G \text{ is an undirected graph with a }k\text{-clique} \}
+\end{align}
+
+\subsection{SUBSET-SUM} \label{sec:}
+
+\begin{align}
+    \text{\textbf{SUBSET-SUM}} = \{ \left<S,t \right> : S = \{ x_1,\cdots ,x_k \}, \text{ and for some } \notag\\\{ y_1,\cdots ,y_l \} \subseteq \{ x_1,\cdots ,x_k \}, \text{ we have } \sum_{}y_i = t\}
+\end{align}
+
+\subsection{SAT} \label{sec:}
+
+\begin{align}
+    \text{\textbf{SAT}} = \{ \left<\phi \right> : \phi \text{ is a satisfiable Boolean formula}\}
+\end{align}
+
+\section{coNP} \label{sec:}
+\begin{definition}[coNP]
+    \textbf{coNP} is the class of language that are complements of languages in \textbf{NP}.
+\end{definition}
+
+
+

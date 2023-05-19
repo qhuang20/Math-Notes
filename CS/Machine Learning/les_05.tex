@@ -1,0 +1,100 @@
+\setcounter{chapter}{3}
+\chapter{Feature Selection}
+
+\begin{motivation}
+    Find the features (columns) of $X$ that are important for predicting $y$.
+\end{motivation}
+
+\section{Basic approaches} \label{sec:}
+
+\subsection{“Association” Approach} \label{sec:}
+
+\begin{idea}
+    For each feature $j$, compute correlation between feature values $x^{j}$ and $y$.
+\end{idea}
+
+\begin{problem}
+    The problem of this approach is that it ignores \textbf{variable interactions}:
+    \begin{itemize}
+        \item Includes irrelevant variables:
+        \item Excludes relevant variables:
+    \end{itemize}
+\end{problem}
+
+\subsection{“Regression Weight” Approach} \label{sec:}
+\begin{idea} ~
+    \begin{itemize}
+        \item Fit regression weights $w$ based on all features (maybe with least squares).
+        \item Take all features $j$ where weight $|w_j|$ is greater than a threshold.
+    \end{itemize}
+\end{idea}
+
+\begin{problem}
+    This approach has major problems with collinearity:
+    \begin{itemize}
+        \item If the variable $A$ always equals the variable $B$, it could say that $A$ is relevant but $B$ is not (when in fact $B$ is relevent).
+        \item If you have two copies of an irrelevant feature, it could take both irrelevant copies.
+    \end{itemize}
+\end{problem}
+
+\section{Search and Score Methods} \label{sec:}
+
+\begin{idea} ~
+    \begin{enumerate}
+        \item Define score function $f(S)$ that measures quality of a set of features $S$.
+        \item Now search for the variables $S$ with the best score.
+    \end{enumerate}
+\end{idea}
+
+\begin{problem}
+    The large number of sets of variables:
+    \begin{itemize}
+        \item If we have $d$ variables, there are $2^{d}$ sets of variables.
+        \item Optimization bias is high: we’re optimizing over $2d$ models.
+    \end{itemize}
+\end{problem}
+
+\subsection{Validation error as score} \label{sec:}
+
+We use validation error as the score to determine which subset of the features to use. So the method becomes "Find the set of features that gives the lowest validation error."
+
+Why not using training error? Because training error goes down as you add features, so will select all features.
+
+\subsection{“Number of Features” Penalties} \label{sec:}
+
+\begin{align*}
+    \text{score}(S) = \frac{1}{2} \sum\limits_{i=1}^{n} (w_s^{T}x_{iS} - y_i)^{2} + \lambda \text{size}(S)
+\end{align*}
+
+\begin{note}
+    \begin{itemize}
+        \item We’re using $x_{iS}$ as the features $S$ of example $x_i$
+        \item We minimize squared error plus a penalty on number of features.
+    \end{itemize}
+\end{note}
+
+\subsection{L0-Norm} \label{sec:}
+
+\begin{align*}
+    f(w) = \frac{1}{2} \left\| Xw-y \right\|_{}^{2} + \lambda \left\| w \right\|_{0}
+\end{align*}
+
+
+\subsection{Forward Selection} \label{sec:}
+It is a greedy search procedure to search for the best $S$:
+
+\begin{enumerate}
+    \item Compute score if we use no features.
+    \item Try adding each feature from $\{ x_1, \cdots , x_d \}$and computing score for each.
+    \item Add the feature $x_i$ with the best score.
+    \item Try $\{ x_i, x_1 \},\cdots ,\{ x_i, x_d \}$ and computing the score of each variable with $x_i$.
+    \item Add the feature $x_j$ with the best score combined with $x_i$.
+    \item keep going\dots
+\end{enumerate}
+
+\begin{remark} ~
+\begin{itemize}
+    \item The runtime of forward selection: we fit $O(d^{2})$ models out of $2^{d}$ possible models with different features.
+    \item Not guaranteed to find the best set, but fitting fewer models reduces many problems.
+\end{itemize}
+\end{remark}

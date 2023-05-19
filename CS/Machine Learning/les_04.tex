@@ -1,0 +1,39 @@
+\setcounter{chapter}{3}
+\chapter{Robust Regression}
+
+\begin{motivation}
+    Least squares are very sensitive to outliers.
+\end{motivation}
+
+\section{Smooth Approximations to the L1-Norm} \label{sec:}
+Goal: Making our model less sensitive to the outlier.
+\\
+\\ Problem with using L1-norm: non-differentiable.
+To solve the problem, we use:
+\begin{formula} [Huber loss]
+    \begin{align}
+        f(w) = \sum\limits_{i=1}^{n} h(w^{T}x_i - y_i)
+        \\ \left( \text{Let } w^{T}x_i - y_i = r_i \right)
+        \\ h(r_i) = \begin{cases}
+            \frac{1}{2}r_i^{2} & \text{for } |r_i| \le \epsilon \\
+            \epsilon(|r_i| - \frac{1}{2}\epsilon) & \text{otherwise} \\
+        \end{cases}
+    \end{align}
+\end{formula}
+
+\section{“Brittle” Regression} \label{sec:}
+Goal: Making our model \textbf{more}  sensitive to the outlier.
+\\
+\\Solution: Use infinity-norm:
+\begin{align}
+    f(w) = \left\| Xw-y \right\|_{\infty}
+\end{align}
+\\ Problem with using infinity-norm: also non-differentiable.
+To solve the problem, we use log-sum-exp function defined as follow:
+\begin{align}
+    \max_{i}\{z_i\} \thickapprox \ln (\sum_{i}\exp (z_i))
+\end{align}
+
+\begin{observe}
+    The largest element in $\{ z_i \}$ is magnified exponentially, thus summing does not affect too much on the value of $\exp (z_i)$, and taking $\ln $ we could approximate $\max_{i}\{ z_i \}$.
+\end{observe}

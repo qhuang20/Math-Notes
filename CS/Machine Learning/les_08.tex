@@ -1,0 +1,191 @@
+\setcounter{chapter}{3}
+\chapter{Neural Network}
+
+\section{Neural Network with on hidden layer} \label{sec:}
+
+As a function, single layer Neural Network can be expressed as follows:
+\begin{align*}
+    \hat{y_i} = v^{T}h(Wx_i)
+\end{align*}
+where it consists of three parts:
+\begin{enumerate}
+    \item Linear transformation $z_i = Wx_i$ (like doing PCA).
+    \begin{itemize}
+        \item $W$ is a $k \times d$ parameter matrix.
+        \item $x_i$ is the input vector.
+    \end{itemize}
+    \item Non-linear transformation $h$ is often sigmoid applied element-wise.
+    \begin{itemize}
+        \item (without a non-linear transformation $\hat{y_i} = v^{T}(Wx_i)$ is simply a linear model.)
+        \item (Using sigmoid allows us to differentiate.)
+    \end{itemize}
+    \item Second linear transformation $v^{T}h(z_i)$ gives final value.
+    \begin{itemize}
+        \item $v$ is a $k \times 1$ vector doing linear combination.
+    \end{itemize}
+\end{enumerate}
+\begin{remark}[Time Complexity]
+    The cost of computing $\hat{y_i}$ is $O(kd)$
+\end{remark}
+
+\begin{intuition}
+    I understand this as follows: given input, we use $W$ to obtain the hidden features like in PCA, then applying $h$ (sigmoid) to choose either we have this hidden feature or not. (Think of the case that we are doing number recognition, the hidden features are ``parts'' of digits. (WANT a figure here.))
+\end{intuition}
+
+\subsection{Adding Bias Variables} \label{sec:}
+
+Recall fitting linear models with a bias variable (so $\hat{y_i} \neq 0$ when $x_i = 0$):
+\begin{align*}
+    \hat{y_i} = \sum\limits_{j=1}^{d} w_jx_{ij}+\beta
+\end{align*}
+In neural networks we often include biases on each $z_{ic}$:
+\begin{align*}
+    \hat{y_i} = \sum\limits_{c=1}^{k} v_c h (w_c^{T}x_i + \beta_c)
+\end{align*}
+(We could implement this by adding a column of ones to $X$)
+\\ * We often also want a bias on the output:
+\begin{align*}
+    \hat{y_i} = \sum\limits_{c=1}^{k} v_c h (w_c^{T}x_i + \beta_c) + \beta
+\end{align*}
+(For sigmoid $h$, we could implement by fixing one row of $W$ to be 0, since $h(0)$ is constant which provides us a row of ones.)
+
+\subsection{Regression and Binary Classification} \label{sec:}
+We have the single layer Neural Network function, now we can either form a Regression problem or binary Classification problem:
+\begin{eg}
+    For Regression problem, our prediction (ignore biases) is:
+    \begin{align*}
+        \hat{y_i} = v^{T}h(Wx_i)
+    \end{align*}
+    And we might train to minimize the squared residual:
+    \begin{align*}
+        f(W,v) = \frac{1}{2} \sum\limits_{i=1}^{n} (\tilde{y_i} - y_i)^{2} = \frac{1}{2} \sum\limits_{i=1}^{n} (v^{T}h(Wx_i) - y_i)^{2}
+    \end{align*}
+\end{eg}
+
+\begin{eg}
+    For Binary Classification, our prediction (ignore biases) is:
+    \begin{align*}
+        \operatorname{sign}(v^{T}h(Wx_i)) \quad \text{ or } \quad \mathbb{P}(y_i|W,v,x_i) = \frac{1}{1 + \exp(-y_i v^{T}h(Wx_i))}
+    \end{align*}
+    And we might train to minimize the logistic loss:
+    \begin{align*}
+        f(W,v) = \sum\limits_{i=1}^{n} (\log(1 + \exp(-y_i \tilde{y_i})))
+    \end{align*}
+\end{eg}
+
+\subsection{Neural Network for multi-class Classification} \label{sec:}
+Hidden layer is connected to multiple output units:
+\begin{align*}
+    \hat{y}_1 = v_1^{T} h(Wx)
+    \\\hat{y}_2 = v_2^{T} h(Wx)
+    \\\hat{y}_3 = v_3^{T} h(Wx)
+\end{align*}
+So, now we have a matrix of parameters:
+\begin{align*}
+    V = \begin{bmatrix}
+     \text{------} & v_1^{T} & \text{------} \\
+      & \vdots &  \\
+    \text{------}  & v_k^{T} & \text{------} \\
+    \end{bmatrix}
+\end{align*}
+which is a $k' \times  k$ matrix, where $k'$ is the number of classes.
+\\ We can also convert it into probabilities for each class using \textbf{softmax} of the $\hat{y}_c$ values.
+\begin{align*}
+    \mathbb{P}(y_i = c | x_i,W,V) = \frac{\exp(\hat{y}_c)}{\sum\limits_{c' = 1}^{k'} \exp(\hat{y}_{c'})}
+\end{align*}
+
+\subsection{Training Neural Network} \label{sec:}
+Recall that for binary Classification, the NLL under the sigmoid likelihood is:
+\begin{align*}
+    f(W,v) = \sum\limits_{i=1}^{n} (\log(1 + \exp(-y_i v^{T}h(Wx_i))))
+\end{align*}
+\begin{remark} ~
+\begin{itemize}
+    \item With $W$ fixed this is convex, but with both $W$ and $v$ as variables it is non-convex.
+    \item And finding the global optimum is NP-hard in general.
+\end{itemize}
+\end{remark}
+Therefore, we nearly always train with variations on SGD.
+\begin{align*}
+    W^{k+1} = W^{k} - \alpha^{k} \nabla_W f_{i_k}(W^{k},v^{k})
+    \\ v^{k+1} = v^{k} - \alpha^{k} \nabla_v f_{i_k}(W^{k},v^{k})
+\end{align*}
+where $i_k$ is a training example chosen uniformly at random.
+
+\subsection{``skip'' connections} \label{sec:}
+Consider a neural network with one hidden layer and connections from input to output layer:
+\begin{align*}
+    \hat{y}_i = w^{T}x_i + v^{T} h(W x_i)
+\end{align*}
+
+\section{Deep Neural Network} \label{sec:}
+Deep learning models have more than one hidden layer.
+\\ As a function, Deep Neural Network can be expressed as follows:
+\begin{align*}
+    \hat{y}_i = v^{T}(\mathop{\bigcirc}\limits^{m}_{l=1} h(W^{(l)}x_i)  )
+\end{align*}
+where $W^{(l)}$ are the parameter matrix in each layer, and can be different sizes.
+
+\begin{remark}[Time Complexity]
+The cost of prediction, which is called ``forward propagation'':
+\begin{itemize}
+    \item Cost of the matrix multiplies: $O(k^{1}d + k^{2}k^{1} + k^{3}k^{2} + k^{4}k^{3})$.
+    \item Cost of the non-linear transforms is $O(k^{1} + k^{2} + k^{3} + k^{4})$, so does not change cost.
+\end{itemize}
+\end{remark}
+
+\begin{intuition}
+    The intuition behind using deep neural network using digit example:
+    \begin{enumerate}
+        \item ``Hierarchies of Parts'' intuition: Each ``neuron'' might recognize a ``part'' of a digit, the ``deeper'' neurons might recognize combinations of parts.
+    \end{enumerate}
+\end{intuition}
+
+\subsection{Rectified Linear Units} \label{sec:}
+
+\textbf{Vanishing Gradients}:  Here is the problem, when we are using the sigmoid function as our activation function, the gradient is nearly zero away from the origin. The problem gets worse when you take the sigmoid of a sigmoid, so in deep networks, many gradients can be nearly zero everywhere, and numerically they will be set to 0, so SGD does not move.
+\\ \textbf{Solution 1}: Modern networks often replace sigmoid with perceptron loss (ReLU):
+\begin{align*}
+    h(z_{ic}) = \max_{}\{ 0, z_{ic}\}
+\end{align*}
+\\ \textbf{Solution 2}: Skip connections can also reduce vanishing gradient problem: Makes “shortcuts” between layers (so fewer transformations).
+
+\subsection{ResNet} \label{sec:}
+An example of Skip Connections Deep Learning is Residual networks. 
+\\ An ResNet ``block'' is defined as follows:
+\begin{align*}
+    a^{l+2} = h(a^{l} + W^{l+1} h(W^{l}a^{l}))
+\end{align*}
+
+\subsection{Learning in Deep Neural Networks} \label{sec:}
+The usual training procedure is stochastic gradient descent (SGD), but Deep networks are highly non-convex and notoriously difficult to tune. However, SGD will usually find the local minimum due to the over-parametrization (since deep neural Network has lots of parameters, so it is easy to over-parametrize). The problem need to be considered is that it is hard to get SG to close to a local minimum in reasonable time.
+
+\section{Automatic Differentiation (AD)} \label{sec:}
+In the deep Neural Network, the objective function is large, so we want a way to avoid calculate gradient.
+
+\subsection{Automatic Differentiation – Single Input+Output} \label{sec:}
+
+\begin{eg} ~
+    \begin{enumerate}
+        \item Our function written as a set of compositions:
+        \begin{align*}
+            f_5(f_4(f_3(f_2(f_1(x)))))
+        \end{align*}
+        \item The derivative written using the chain rule::
+        \begin{align*}
+            f'(x) = f_5'(f_4(f_3(f_2(f_1(x)))))*f_4'(f_3(f_2(f_1(x))))*f_3'(f_2(f_1(x)))*f_2'(f_1(x))f_1'(x)
+        \end{align*}
+    \end{enumerate}
+    Notice that this leads to repeated calculations. For example, we use f1(x) four different times. So We can use dynamic programming to avoid redundant calculations:
+    \begin{enumerate}
+        \item First, the “forward pass” will compute and store the expressions.
+        \begin{align*}
+            \alpha_1 = f_1(x), \alpha_2 = f_2(\alpha_1), \alpha_3 = f_3(\alpha_2), \alpha_4 = f_4(\alpha_3), \alpha_5 = f_5(\alpha_4) = f(x)
+        \end{align*}
+        \item Next, the “backward pass” uses stored $\alpha_k$ values and $f_i'$ functions.
+        \begin{align*}
+            \beta_5 = 1*f_5'(\alpha_4), \beta_4 = \beta_5*f_4'(\alpha_3), \beta_3 = \beta_4*f_3'(\alpha_2), \beta_2 = \beta_3*f_2'(\alpha_1), \beta_1 = \beta_2*f_1'(x) = f'(x)
+        \end{align*}
+    \end{enumerate}
+    This is a generic method to make code computing $f'(x)$ for same cost as $f(x)$.
+\end{eg}

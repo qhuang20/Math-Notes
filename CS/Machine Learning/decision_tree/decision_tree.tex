@@ -1,0 +1,142 @@
+\documentclass[11pt]{article}
+\usepackage[utf8]{inputenc}	% Para caracteres en español
+\usepackage{amsmath,amsthm,amsfonts,amssymb,amscd}
+\usepackage{multirow,booktabs}
+\usepackage[table]{xcolor}
+\usepackage{fullpage}
+\usepackage{lastpage}
+\usepackage{enumitem}
+\usepackage{fancyhdr}
+\usepackage{mathrsfs}
+\usepackage{wrapfig}
+\usepackage{setspace}
+\usepackage{calc}
+\usepackage{multicol}
+\usepackage{cancel}
+\usepackage[retainorgcmds]{IEEEtrantools}
+\usepackage[margin=3cm]{geometry}
+\usepackage{listings}
+\usepackage{empheq}
+\usepackage{framed}
+\usepackage[most]{tcolorbox}
+\usepackage{xcolor}
+
+% Pseudo-code
+\usepackage{algorithm}
+\usepackage[noend]{algpseudocode}
+\makeatletter
+\def\BState{\State\hskip-\ALG@thistlm}
+\makeatother
+
+% Code style
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+\lstdefinestyle{mystyle}{
+    backgroundcolor=\color{backcolour},   
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codepurple},
+    basicstyle=\ttfamily\footnotesize,
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                 
+    numbers=left,                    
+    numbersep=5pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=2
+}
+\lstset{style=mystyle}
+
+% Unclassified
+\newlength{\tabcont}
+\setlength{\parindent}{0.0in}
+\setlength{\parskip}{0.05in}
+\colorlet{shadecolor}{orange!15}
+\parindent 0in
+\parskip 12pt
+\geometry{margin=1in, headsep=0.25in}
+\theoremstyle{definition}
+\newtheorem{defn}{Definition}
+\newtheorem{reg}{Rule}
+\newtheorem{exer}{Exercise}
+\newtheorem{note}{Note}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}{lemma}
+\newtheorem{remark}{remark}
+\newtheorem{corollary}{corollary}
+\begin{document}
+
+\setcounter{section}{-1}
+
+\title{Decision Tree}
+
+\thispagestyle{empty}
+
+\begin{center}
+{\LARGE \bf Decision Tree}\\
+{\large Xuzhe Xia}\\
+\today
+\end{center}
+
+% The document BEGIN here
+% ------------------------------------------------------------------------------------------------------
+  
+\section{Definitions} \label{sec:}
+
+Decision tree is:
+\begin{itemize}
+    \item A nested sequence of "if-else" decision based on the features.
+    \item A class as a return value at the end of each sequence.
+\end{itemize}
+
+Decision stump is:
+\begin{itemize}
+    \item A simple decision tree with 1 splitting rule based on threshold 1 feature.
+    \item To learn a decision stump we need to know: which feature use to split; what value to used; classes assigned to leaves.
+\end{itemize}
+
+Notations:
+\begin{itemize}
+    \item Feature matrix $X$: $n \times d$ dimension. ($n$: number of samples, $d$: number of features).
+    \item Label vector $y$: each entry is a label of corresponds sample.
+\end{itemize}
+
+
+\section{Accuracy-based decision tree} \label{sec:}
+
+\subsection{Decision Stump} \label{sec:}
+
+Choice of decision stump:
+\begin{itemize}
+    \item Choose the best stump based on accuracy.
+    \item 
+\begin{lstlisting}[language=Python, caption=Decision stmp learning pseudo-code]
+for feature "j":
+    for each threshold "t":
+        set "y-yes" to most common label of objects satisfying rule.
+        set "y-no" to most common label of objects not satisfying rule.
+        set "y-hat" to most common label of objects "i" satisfying rule.
+        compute error = number of objects where y != y-hat.
+\end{lstlisting}
+    \item complexity: 
+\end{itemize}
+
+% \begin{algorithm}
+%     \caption{My algorithm}\label{euclid}
+%     \begin{algorithmic}[1]
+%         \Procedure{MyProcedure}{}
+%         \EndProcedure
+%     \end{algorithmic}
+% \end{algorithm}
+
+
+% ------------------------------------------------------------------------------------------------------
+% The document ENDS here
+
+\end{document}

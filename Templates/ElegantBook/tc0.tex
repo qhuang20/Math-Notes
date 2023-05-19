@@ -1,0 +1,44 @@
+\chapter{Introduction}
+
+\begin{definition}[Probability triple]
+    \normalfont A \textbf{probability triple} is $(\Omega, \mathcal{F}, \mathbb{P})$ where:
+    \begin{itemize}
+        \item The \textbf{sample space} $\Omega$ is any non-empty set.
+        \item The \textbf{$\sigma$-algebra} $\mathcal{F}$ is a collection of subsets of $\Omega$ satisfies:
+        \begin{enumerate}
+            \item Containing $\Omega$ and $\varnothing$.
+            \item (closed under the complements) For any $A \in \mathcal{F}$, $A^{C} \in \mathcal{F}$.
+            \item (closed under the countable unions) For any countable (or finite) collection $\{ A_i \} \subseteq \mathcal{F}$, the union $\bigcup_{i} A_i \in \mathcal{F}$.
+        \end{enumerate}
+        \item The \textbf{probability measure} $\mathbb{P}$ is a mapping from $\mathcal{F}$ to $[0,1]$ satisfies:
+        \begin{enumerate}
+            \item $\mathbb{P}(\Omega) = 1$.
+            \item (\textbf{Countable additivity}) For a countable disjoint collection $\{ A_i \} \subseteq \mathcal{F}$, $\mathbb{P}(\bigcup_{i} A_i) = \sum\limits_{i} \mathbb{P}(A_i)$.
+        \end{enumerate}
+    \end{itemize}
+\end{definition}
+
+    
+\begin{remark}
+    In general $\mathcal{F}$ might not contain all subsets of $\Omega$.
+\end{remark}
+
+\begin{corollary} ~
+\begin{itemize}
+    \item $\mathcal{F}$ is closed under the countable intersections.
+    \item $\mathbb{P}(\varnothing) = 0$.
+    \item $\mathbb{P}(A^{C}) = 1- \mathbb{P}(A)$.
+    \item (\textbf{Monotonicity}) $\mathbb{P}(A) \le \mathbb{P}(B)$ whenever $A \subseteq B$.
+    \item (\textbf{Principle of inclusion-exclusion}) $\mathbb{P}(A \cup B) = \mathbb{P}(A) + \mathbb{P}(B) - \mathbb{P}(A \cap B)$.
+    \item (\textbf{Countable subadditivity}) For a countable collection $\{ A_i \} \subseteq \mathcal{F}$, $\mathbb{P}(\bigcup_{i} A_i) \le \sum\limits_{i} \mathbb{P}(A_i)$.
+\end{itemize}
+\end{corollary}
+
+\begin{theorem}
+Let
+\begin{itemize}
+    \item $\Omega$ be a finite or countable non-empty set.
+    \item $p: \Omega \to [0,1]$ be ab function satisfying $\sum\limits_{\omega \in \Omega} p(\omega) = 1$,
+\end{itemize}
+then there is a probability triple $(\Omega, \mathcal{F}, \mathbb{P})$ where $\mathcal{F} = \mathbb{P}(\Omega)$, and for $A \in \mathcal{F}$, $\mathbb{P}(A) = \sum\limits_{\omega \in A}p(\omega)$.
+\end{theorem}

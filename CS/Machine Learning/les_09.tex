@@ -1,0 +1,68 @@
+\setcounter{chapter}{3}
+\chapter{Naive Bayes}
+Naive Bayes is a type of generative model. That is, when trying to predict the probability of an example $x$ belonging to class $t$, the model first finds the conditional probability $p(x \mid t)$. The model then make the inference on $p(t \mid x)$ using Bayes rule as follows: 
+\begin{align*}
+    p(t \mid x) &= \frac{p(x \mid t) p(t)}{p(x)} & \mbox{(by Bayes rule)} \\
+    &= \frac{p(x \mid t) p(t)}{\sum_{c} p(x \mid c) p(c)} & \mbox{(by marginalizing conditional probability)}
+\end{align*}
+
+If the example $x$ is a list of $m$ features, Naive Bayes makes the simplifying assumption that $p(x \mid t) = \prod^{m}_{i}p(x_i \mid t)$. That is to say, the features $x_i$'s are conditionally independent given the class $t$.
+
+In a typical scenario, we observe a dataset of $n$ examples $x^{(1)}, \dots, x^{(n)}$, and each example $x^{(i)}$ has $m$ binary features $x^{(i)}_1, \dots, x^{(i)}_m$. Each example $x^{(i)}$ belongs to one of $K$ classes $c_1, \dots, c_K$, thus we denote the class label of example $x^{(i)}$ as a one-hot vector $c^{(i)}$ where $x^{(i)}$ belongs to class $j$ is and only if $c^{(i)}_j = 1$. 
+
+We specify parameters $\theta_{ij}$ as the probability that feature $x_i$ is true given that example belongs to class $c_j$, i.e., $\theta_{ij} = p(x_i = 1 \mid c_j)$. Specify $\pi_j$ as the probability that an example belongs to class $c_j$, i.e., $\pi_j = p(c_j)$.  We can estimate the $\theta$'s and $\pi$'s by finding the maximum likelihood estimators (MLEs) for them that maximize the log-likelihood of observing the dataset. The log-likelihood can be decomposed as follows.
+
+\begin{align*}
+    l(\theta, \pi) &= \log \prod^{n}_{i} p(c^{(i)} \mid x^{(i)}) \\
+    &= \sum^{n}_{i} \log p(c^{(i)} \mid x^{(i)}) \\
+    &\propto \sum^{n}_{i} \left( \log p(x^{(i)} \mid c^{(i)})  + \log p(c^{(i)}) \right) & \mbox{(by Bayes rule)} \\
+    &= \sum^{n}_{i} \log p(x^{(i)} \mid c^{(i)}) + \sum^{n}_{i} \log p(c^{(i)}) \\
+    &= \sum^{n}_{i} \log \prod^{m}_{j} p(x^{(i)}_{j} \mid c^{(i)}) + \sum^{n}_{i} \log p(c^{(i)}) &\mbox{(by Naive Bayes assumption)} \\
+    &= \sum^{n}_{i} \sum^{m}_{j} \log p(x^{(i)}_{j} \mid c^{(i)}) + \sum^{n}_{i} \log p(c^{(i)})
+\end{align*}
+
+The first term is the log-likelihood for the features, the second term is the log-likelihood for the labels. We will maximize $l(\theta, \pi)$ by maximizing each term separately.
+
+First, expanding the terms, we have
+\begin{align*}
+    p(c^{(i)}) &= \prod^{K}_{k}\pi_k^{c^{(i)}_k} \\
+    p(x^{(i)}_{j} \mid c^{(i)}) &= \prod^{K}_{k}\left(\theta_{jk}^{x^{(i)}_j} (1 - \theta_{jk})^{1 - x^{(i)}_j} \right)^{c^{(i)}_k}
+\end{align*}
+
+Therefore, we can write the log-likelihood for the labels as
+\begin{align*}
+    \sum^{n}_{i} \log p(c^{(i)}) &= \sum^{n}_{i} \log \prod^{K}_{k}\pi_k^{c^{(i)}_k} \\
+    &= \sum^{n}_{i} \sum^{K}_{k} c^{(i)}_k \log \pi_k
+\end{align*}
+
+To find the MLE of $\pi_j$, $1 \leq j \leq K$, we first find the MLE of $\pi_j$ for $1 \leq j \leq K - 1$. In the end, we will show the MLE of every $\pi_j$ is $\frac{s_j}{n}$, where $s_j = \sum^{n}_{i = 1} c^{(i)}_j$.
+
+We can rewrite the above log-likelihood expression and differentiate it with respect to $\pi_j$ and set it to 0. We have
+\begin{align*}
+    \frac{\partial}{\partial \pi_j} \sum^{n}_{i} \sum^{K}_{k} c^{(i)}_k \log \pi_k &= \frac{\partial}{\partial \pi_j} \sum^{n}_{i} \left( \left( \sum^{K - 1}_{k} c^{(i)}_{k} \log \pi_{k} \right) + c^{(i)}_{K} \log \left(1 - \sum^{K - 1}_{k'}\pi_{k'}\right) \right) \\ 
+    &= \sum^{n}_{i} \left( \frac{c^{(i)}_{j}}{\pi_j} -  \frac{c^{(i)}_K}{1 - \sum^{K - 1}_{k' = 0}\pi_{k'}} \right)  \\
+    &= \frac{s_j}{\pi_j} - \frac{s_K}{\pi_K} = 0 \Longrightarrow \frac{s_j}{\pi_j} = \frac{s_K}{\pi_K} \Longrightarrow \frac{\pi_j}{\pi_K} = \frac{s_j}{s_K} & \mbox{($s_k = \sum^{n}_{i = 1} c^{(i)}_k$) (*)}
+\end{align*}
+
+Since $\sum^{K}_{k}\pi_k = 1$ and $\sum^{K}_{k} s_k = n$, by (*) we have
+\begin{align*}
+    \sum^{K}_{k} \frac{\pi_k}{\pi_K} = \frac{1}{\pi_K} = \sum^{K}_{k} \frac{s_k}{s_K} = \frac{n}{s_K} \Longrightarrow \frac{1}{\pi_K} = \frac{n}{s_K} \Longrightarrow \pi_K = \frac{s_K}{n}
+\end{align*}
+
+Then, by (*), for each $1 \leq j \leq K - 1$ we have
+\begin{align*}
+    \frac{\pi_j}{\pi_K} = \frac{\pi_j n}{s_K} = \frac{s_j}{s_K} \Longrightarrow \pi_j = \frac{s_j}{n}
+\end{align*}
+
+Therefore, for each $1 \leq j \leq K$ the MLE for $\pi_j = \frac{s_j}{n}$.
+
+It can be similarly shown that the MLE of $\theta_{jk}$ is $\frac{\sum^{n}_{i = 1} c_k^{(i)} x^{(i)}_{j}}{\sum^{n}_{i = 1} c_k^{(i)}}$. It will be left as an exercise for the reader to show this.
+
+Having found the MLEs of the $\theta$'s and $\pi$'s, we can use them for inference given a new $x^*$ and classify which class it belongs to (using Bayes rule). That is, we can find the probability that $x^*$ belongs to class $c_j$, i.e., $p(t = c_j | x^*)$ directly by using the formula
+\begin{align*}
+    p(t = c_j \mid x^*) &= \frac{p(x^* \mid t = c_j) p(t = c_j)}{\sum_{c} p(x^* \mid c) p(c)} \propto p(x^* \mid t = c_j) p(t = c_j) = \prod^{m}_{i}\left( \theta_{ij}^{x^*_i}(1 - \theta_{ij}^{1 - x^*_i}) \right) \cdot \pi_j
+\end{align*}
+
+Since in doing category classification we only care about the relative magnitudes of the probability that $x^*$ belongs to a certain class, we can ignore the denominator in the equation above in doing classification for simplicity.
+
+

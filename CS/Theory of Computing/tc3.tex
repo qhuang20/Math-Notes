@@ -1,0 +1,45 @@
+\setcounter{chapter}{1}
+\chapter{Turing Machine}
+
+\setcounter{section}{0}
+
+\section{Definition of Turing Machine} \label{sec:}
+
+\begin{definition}[Turing Machine]~
+\\A \textit{Turing Machine} is a 7-tuple, $(Q,\Sigma,\Gamma,q_0,\qacc,\qrej)$, where $Q,\Sigma,\Gamma$ are all finite sets and:
+\begin{enumerate}
+    \item $Q$ is the set of \textbf{states}
+    \item $\Sigma$ is the \textbf{input alphabet} not containing the blank symbol \texttt{\char32}
+    \item $\Gamma$ is the \textbf{tape alphabet}, where $ \texttt{\char32} \in \Gamma$ and $\Sigma \subseteq \Gamma$
+    \item $\delta: Q \times \Gamma \to Q\times \Gamma \times \{ \text{L}, \text{R}\}$ is the \textbf{transition function}
+    \item $q_0 \in Q$ is the start state
+    \item $\qacc \in Q$ is the accept state
+    \item $\qrej$ is the reject state, where $\qacc \neq \qrej$
+\end{enumerate}
+\end{definition}
+
+\subsection{Multi-tape Turing Machine} \label{sec:}
+
+
+\subsection{Nondeterministic Turing Machine} \label{sec:}
+
+
+
+\begin{definition}[Configuration] ~
+\\A \textit{configuration} of the Turing machine is $u q v$, where:
+\begin{itemize}
+    \item $q \in Q$ is the current state.
+    \item $u$ and $v$ are strings over the tape alphabet $\Gamma$.
+    \item The first symbol of $v$ is the current head location.
+\end{itemize}
+\end{definition}
+
+\begin{definition}[Configuration Tree] Given a Turing machine $M$ and an input string $s$.
+\\A \textit{configuration tree} is a tree with:
+\begin{itemize}
+    \item The root node is $q_0 s$
+    \item Given the current node $u q v$, the child $u' q' v' \in \delta(q, v[1])$
+\end{itemize}
+\end{definition}
+
+

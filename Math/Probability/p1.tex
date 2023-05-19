@@ -1,0 +1,44 @@
+\chapter{Probability Space}
+\begin{note}
+    Pre-requisite is Real Analysis chapter 2: Measure Theory.
+\end{note}
+\section{Motivation of using measure theory} \label{sec:}
+
+
+\section{Introduction} \label{sec:}
+
+
+\begin{definition}[Probability triple]
+\normalfont 
+A \textbf{probability triple} is $(\Omega, \mathcal{F}, \mathbb{P})$ where:
+\begin{itemize}
+    \item The \textbf{sample space} $\Omega$ is any non-empty set.
+    \item The \textbf{$\sigma$-algebra} $\mathcal{F}$ of $\Omega$.
+    \item The \textbf{probability measure} $\mathbb{P}: \mathcal{F} \to [0,1]$ is a measure defined on $(\Omega, \mathcal{F})$ s.t. $\mathbb{P}(\Omega) = 1$.
+\end{itemize}
+\end{definition}
+\begin{remark}
+    $\mathbb{P}(\varnothing) = 0$ is redundant for the definition of probability measure, but necessary for the definition of measure.
+\end{remark}
+
+
+\begin{corollary} ~
+\normalfont 
+\begin{itemize}
+    \item $\mathcal{F}$ is closed under the countable intersections.
+    \item $\mathbb{P}(A^{C}) = 1- \mathbb{P}(A)$.
+    \item (\textbf{Monotonicity}) $\mathbb{P}(A) \le \mathbb{P}(B)$ whenever $A \subseteq B$.
+    \item (\textbf{Principle of inclusion-exclusion}) $\mathbb{P}(A \cup B) = \mathbb{P}(A) + \mathbb{P}(B) - \mathbb{P}(A \cap B)$.
+    \item (\textbf{Subadditivity}) For a countable collection $\{ A_i \} \subseteq \mathcal{F}$, $\mathbb{P}(\bigcup_{i} A_i) \le \sum\limits_{i} \mathbb{P}(A_i)$.
+\end{itemize}
+\end{corollary}
+
+\begin{theorem}
+\normalfont 
+Let
+\begin{itemize}
+    \item $\Omega$ be a finite or countable non-empty set.
+    \item $p: \Omega \to [0,1]$ be ab function satisfying $\sum\limits_{\omega \in \Omega} p(\omega) = 1$,
+\end{itemize}
+then there is a probability triple $(\Omega, \mathcal{F}, \mathbb{P})$ where $\mathcal{F} = \mathbb{P}(\Omega)$, and for $A \in \mathcal{F}$, $\mathbb{P}(A) = \sum\limits_{\omega \in A}p(\omega)$.
+\end{theorem}

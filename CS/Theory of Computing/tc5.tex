@@ -1,0 +1,46 @@
+\setcounter{chapter}{1}
+\chapter{NP-Completeness}
+
+
+\section{Polynomial time reduction} \label{sec:}
+
+\begin{definition}[Polynomial time computable function] ~ 
+
+A function $f: \Sigma^{*} \to \Sigma^{*}$ is a \textbf{polynomial time computable function} if there exists a polynomial time Turing machine $M$ that halts with just $f(w)$ on its tape, when started on any input $w$.
+\end{definition}
+
+\begin{definition}[Polynomial time reducible] ~ 
+
+Language $A$ is \textbf{polynomial time reducible} to language $B$, denoted as $A\le_P B$, if there exists a polynomial time computable function $f: \Sigma^{*} \to \Sigma^{*}$, such that for every $w$,
+\begin{align}
+    w \in A \iff f(w) \in B
+\end{align}
+such a function $f$ is called the \textbf{polynomial time reduction} of $A$ to $B$.
+\end{definition}
+
+\begin{prop}
+If $A \le_P B$ and $B \in P$, then $A \in P$
+\end{prop}
+
+\section{NP-Completeness} \label{sec:}
+
+\begin{definition}[NP-Complete]
+A language $B$ is \textbf{NP-Complete} if it satisfies two conditions:
+\begin{enumerate}
+    \item $B$ is in \textbf{NP}.
+    \item every $A$ in \textbf{NP} is polynomial time reducible to $B$.
+\end{enumerate}
+\end{definition}
+
+\begin{prop}
+    If $B$ is \textbf{NP-Complete} and $B \in P$, then \textbf{P}=\textbf{NP}. 
+\end{prop}
+
+\begin{prop}
+    If $B$ is \textbf{NP-Complete} and $B\le_{P} C$ in \textbf{NP}, then $C$ is \textbf{NP-Complete}.
+\end{prop}
+
+
+\section{Examples} \label{sec:}
+
+

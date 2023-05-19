@@ -1,0 +1,100 @@
+\setcounter{chapter}{3}
+\chapter{Regularization}
+\begin{motivation}
+    Complex models tend to overfit, but usually the mapping from $x_i$ to $y_i$ is complex.
+    So we need regularization when we need a complex model. 
+\end{motivation}
+
+\section{L2-Regularization} \label{sec:}
+\begin{align*}
+    f(w) = \frac{1}{2} \sum\limits_{i=1}^{n} (w^{t}x_i - y_i)^{2} + \frac{\lambda}{2} \sum\limits_{j=1}^{d} w_j^{2} \notag = \frac{1}{2} \left\| Xw-y \right\|_{}^{2} + \frac{\lambda}{2}\left\| w \right\|_{}^{2}
+\end{align*}
+\begin{intuition} ~
+    \begin{itemize}
+        \item Large slopes $w_j$ tend to lead to overfitting.
+        \item Regularization parameter $\lambda > 0$ controls “strength” of regularization, in another word, large $\lambda$ puts large penalty on slopes.
+    \end{itemize}
+\end{intuition}
+
+\subsection{Fundamental trade-off} \label{sec:}
+\begin{itemize}
+    \item Regularization increases training error.
+    \item Regularization decreases approximation error.
+\end{itemize}
+
+\subsection{Solving L2-Regularized Least Squares Problem} \label{sec:}
+
+\begin{align}
+    \nabla f(w) = X^{T}Xw - X^{T}y + \lambda w
+\end{align}
+\begin{align}
+    w = (X^{T}X + \lambda I)^{-1}X^{T}y
+\end{align}
+
+\begin{remark}
+    $X^{T}X + \lambda I$ is always invertible.
+\end{remark}
+
+Gradient Descent for L2-Regularized Least Squares:
+
+\begin{align}
+    w^{t+1} = w^{t} - \alpha^{t}\left[ X^{T}(Xw^{t} - y) + \lambda w^{t} \right] = w^{t} - \alpha^{t}\left[ \nabla f(w^{t}) \right]
+\end{align}
+
+\begin{remark}
+    Number of iterations decrease as λ increases
+\end{remark}
+
+\section{L1-Regularization (“LASSO” regularization)} \label{sec:}
+
+\begin{align}
+    f(w) = \frac{1}{2}\left\| Xw-y \right\|_{}^{2} + \lambda \left\| w \right\|_{1}
+\end{align}
+
+\section{L2-Regularization vs L1-Regularization} \label{sec:}
+\begin{table}[htbp]
+    \centering\begin{tabular}{c|c}
+        L2-Regularization: & L1-Regularization:
+        \\ Insensitive to changes in data. & Insensitive to changes in data.
+        \\ Decreased variance: Lower test error. & – Decreased variance: Lower test error.
+        \\ Closed-form solution. & Requires iterative solver.
+        \\ Solution is unique. & Solution is not unique.
+        \\ All $w_j$ tend to be non-zero. & Many $w_j$ tend to be zero.
+        \\ Can learn with linear number of irrelevant features. & Can learn with exponential number 
+        of irrelevant features.
+    \end{tabular}
+\end{table}
+
+
+
+
+
+
+
+
+
+\chapter{Standardizing features} % (fold)
+When the unit of features does not matter: Decision trees, Naive Bayes, and Least squares.
+\\When the unit of features does matter: k-nearest neighbor, regularized least squares.
+
+\section{Standardize continuous features} \label{sec:}
+\begin{idea}
+    For each feature:
+    \begin{itemize}
+        \item Compute mean and standard deviation:
+        \begin{align}
+            \mu_j = \frac{1}{n} \sum\limits_{i+1}^{n} x_{ij} \qquad \sigma_j = \sqrt{\frac{1}{n} \sum\limits_{i=1}^{n} (x_{ij} - \mu_j)^{2}}
+        \end{align}
+        \item Subtract mean and divide by standard deviation (“z-score”). (replace $x_{ij}$ with $\frac{x_{ij}-\mu_j}{\sigma_j}$)
+    \end{itemize}
+\end{idea}
+
+\section{Standardize test data} \label{sec:}
+
+Use mean and standard deviation of training data to standardize test data but do \textbf{not} use mean and standard deviation of test data.
+
+\section{Standardize the targets $y_i$} \label{sec:}
+Replace $y_{i}$ with $\frac{y_{i}-\mu_y}{\sigma_y}$
+
+
+
